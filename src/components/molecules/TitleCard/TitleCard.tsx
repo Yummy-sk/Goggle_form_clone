@@ -1,0 +1,31 @@
+import * as S from './TitleCard.style';
+
+interface ITitleCardProps {
+  title: string;
+  description: string;
+  isActivated: boolean;
+}
+
+export function TitleCard({
+  title,
+  description,
+  isActivated,
+}: ITitleCardProps) {
+  return (
+    <S.CardContainer>
+      <S.CardTop />
+      <S.CardContentContainer>
+        <S.CardActivator isActivated={isActivated} />
+        <S.CardContentWrapper>
+          <S.CardTitle id='standard-basic' variant='standard' value={title} />
+          <S.CardDescription
+            id='standard-basic'
+            variant='standard'
+            value={description}
+            placeholder='설문지 설명'
+          />
+        </S.CardContentWrapper>
+      </S.CardContentContainer>
+    </S.CardContainer>
+  );
+}

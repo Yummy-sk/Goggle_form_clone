@@ -1,5 +1,6 @@
+import { TextField } from 'components';
+import { AppBar, Container, IconButton } from '@mui/material';
 import styled from '@emotion/styled';
-import { AppBar, Container, IconButton, TextField } from '@mui/material';
 
 export const NavBar = styled(AppBar)`
   width: 100%;
@@ -38,6 +39,7 @@ export const ResultIcon = styled(IconButton)`
 
 export const TitleInput = styled(TextField)`
   margin-left: 8px;
+
   & .MuiInput-root::before {
     border: transparent;
   }
