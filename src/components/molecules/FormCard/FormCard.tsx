@@ -8,7 +8,7 @@ interface IFormCardProps {
 
 export function FormCard({ isActivated }: IFormCardProps) {
   return (
-    <S.CardContainer>
+    <S.CardContainer style={{ maxWidth: '800px' }}>
       {isActivated ? <FormCardActive /> : <FormCardInactive />}
     </S.CardContainer>
   );

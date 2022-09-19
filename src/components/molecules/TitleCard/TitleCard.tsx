@@ -12,7 +12,7 @@ export function TitleCard({
   isActivated,
 }: ITitleCardProps) {
   return (
-    <S.CardContainer>
+    <S.CardContainer style={{ maxWidth: '800px' }}>
       <S.CardTop />
       <S.CardContentContainer>
         <S.CardActivator isActivated={isActivated} />
