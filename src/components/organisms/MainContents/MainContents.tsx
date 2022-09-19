@@ -13,7 +13,7 @@ export function MainContents() {
   const { key, title, description, isActivated } = titleState;
 
   const onActivate = ({ formKey }: { formKey: string }) =>
-    dispatch(setActivated(formKey));
+    dispatch(setActivated({ key: formKey }));
 
   return (
     <S.MainContentsContainer>
