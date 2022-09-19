@@ -1,3 +1,5 @@
+import { IconButton } from 'components';
+import ImageIcon from '@mui/icons-material/Image';
 import * as S from './FormCardActive.style';
 
 export function FormCardActive() {
@@ -14,6 +16,9 @@ export function FormCardActive() {
             placeholder='질문'
             variant='filled'
           />
+          <IconButton>
+            <ImageIcon />
+          </IconButton>
         </S.CardContentInfo>
       </S.CardContentWrapper>
     </S.CardContainer>
