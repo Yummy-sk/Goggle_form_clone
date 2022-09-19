@@ -1,4 +1,4 @@
-import { Layout, Navigation, MainContents } from 'components';
+import { Layout, Navigation, MainContents, FormAddButton } from 'components';
 
 export function Main() {
   return (
@@ -7,6 +7,7 @@ export function Main() {
       <Layout isMain>
         <MainContents />
       </Layout>
+      <FormAddButton />
     </>
   );
 }

@@ -1,9 +1,9 @@
-import * as S from './FloatingButton.style';
+import { Fab } from '@mui/material';
 
 interface IFloatButtonProps {
   children: React.ReactNode;
 }
 
 export function FloatingButton({ children, ...props }: IFloatButtonProps) {
-  return <S.Button {...props}>{children}</S.Button>;
+  return <Fab {...props}>{children}</Fab>;
 }

@@ -5,6 +5,7 @@ export { FloatingButton } from 'components/atoms/FloatingButton';
 
 // molecules
 export { TitleCard } from 'components/molecules/TitleCard';
+export { FormAddButton } from 'components/molecules/FormAddButton';
 
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
