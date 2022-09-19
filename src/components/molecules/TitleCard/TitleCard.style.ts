@@ -1,4 +1,4 @@
-import { CardContent } from '@mui/material';
+import { CardContent, TextField } from '@mui/material';
 import { Card } from 'components';
 import styled from '@emotion/styled';
 
@@ -34,4 +34,30 @@ export const CardContentWrapper = styled(CardContent)`
   flex: 9;
 
   display: flex;
+  flex-direction: column;
+`;
+
+export const CardTitle = styled(TextField)`
+  width: 100%;
+
+  margin-bottom: 8px;
+  & .MuiInput-root::before {
+    border-bottom: 2px solid #dadce0;
+  }
+  & .MuiInput-root::after {
+    border-bottom: 2px solid #4c2b87;
+  }
+  & .MuiInput-input {
+    font-size: 24pt;
+  }
+`;
+
+export const CardDescription = styled(TextField)`
+  width: 100%;
+  & .MuiInput-root::before {
+    border-bottom: 1px solid #dadce0;
+  }
+  & .MuiInput-root::after {
+    border-bottom: 1px solid #4c2b87;
+  }
 `;

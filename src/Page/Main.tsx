@@ -5,7 +5,7 @@ export function Main() {
     <>
       <Navigation title='제목 없는 설문지' />
       <Layout isMain>
-        <TitleCard isActivated>안녕</TitleCard>
+        <TitleCard title='제목 없는 설문지' description='' isActivated />
       </Layout>
     </>
   );
