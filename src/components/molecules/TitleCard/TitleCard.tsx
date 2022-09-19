@@ -4,15 +4,17 @@ interface ITitleCardProps {
   title: string;
   description: string;
   isActivated: boolean;
+  onActivate: () => void;
 }
 
 export function TitleCard({
   title,
   description,
   isActivated,
+  onActivate,
 }: ITitleCardProps) {
   return (
-    <S.CardContainer style={{ maxWidth: '800px' }}>
+    <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
       <S.CardTop />
       <S.CardContentContainer>
         <S.CardActivator isActivated={isActivated} />
@@ -20,12 +22,14 @@ export function TitleCard({
           <S.CardTitle
             id='standard-basic'
             variant='standard'
+            name='title'
             value={title}
             isActivated={isActivated}
           />
           <S.CardDescription
             id='standard-basic'
             variant='standard'
+            name='description'
             value={description}
             isActivated={isActivated}
             placeholder='설문지 설명'
