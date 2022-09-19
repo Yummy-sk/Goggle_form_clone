@@ -1,9 +1,11 @@
 // atoms
 export { Card } from 'components/atoms/Card';
 export { TextField } from 'components/atoms/TextField';
+export { FloatingButton } from 'components/atoms/FloatingButton';
 
 // molecules
 export { TitleCard } from 'components/molecules/TitleCard';
+export { FormAddButton } from 'components/molecules/FormAddButton';
 
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
