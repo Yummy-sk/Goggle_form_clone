@@ -1,9 +1,11 @@
+import { nanoid } from 'nanoid';
 import view from 'assets/img/view.png';
 import main_logo from 'assets/img/forms.png';
 import * as S from './Navigation.style';
 
 export function Navigation({ title }: { title: string }) {
   const formTitle = title || '제목 없는 설문지';
+
   return (
     <S.NavBar position='fixed'>
       <S.NavContainer maxWidth='lg'>
@@ -18,7 +20,9 @@ export function Navigation({ title }: { title: string }) {
           />
         </S.LeftContentWrapper>
         <S.ResultIcon>
-          <img src={view} alt='show result icon' />
+          <a href={`/result/${nanoid()}`} target='_blank' rel='noreferrer'>
+            <img src={view} alt='show result icon' />
+          </a>
         </S.ResultIcon>
       </S.NavContainer>
     </S.NavBar>
