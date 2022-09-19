@@ -1,9 +1,15 @@
+import { FormCardActive } from './FormCardActive';
+import { FormCardInactive } from './FormCardInactive';
 import * as S from './FormCard.style';
 
-export function FormCard() {
+interface IFormCardProps {
+  isActivated: boolean;
+}
+
+export function FormCard({ isActivated }: IFormCardProps) {
   return (
     <S.CardContainer>
-      <h1>FormCard</h1>
+      {isActivated ? <FormCardActive /> : <FormCardInactive />}
     </S.CardContainer>
   );
 }
