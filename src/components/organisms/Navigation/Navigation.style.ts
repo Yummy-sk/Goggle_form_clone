@@ -39,6 +39,7 @@ export const ResultIcon = styled(IconButton)`
 
 export const TitleInput = styled(TextField)`
   margin-left: 8px;
+
   & .MuiInput-root::before {
     border: transparent;
   }

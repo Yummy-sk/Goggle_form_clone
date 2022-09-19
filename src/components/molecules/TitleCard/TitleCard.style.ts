@@ -22,6 +22,9 @@ export const CardContentContainer = styled.div`
 export const CardActivator = styled.div<{ isActivated: boolean }>`
   max-width: 8px;
   flex: 1;
+
+  transition: background-color 0.3s ease-in-out;
+
   background-color: ${({ isActivated }) =>
     isActivated ? '#4284f3' : 'transparent'};
 `;
