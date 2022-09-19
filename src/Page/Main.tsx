@@ -5,7 +5,7 @@ export function Main() {
     <>
       <Navigation title='제목 없는 설문지' />
       <Layout isMain>
-        <div>내용</div>
+        <div>안녕</div>
       </Layout>
     </>
   );
