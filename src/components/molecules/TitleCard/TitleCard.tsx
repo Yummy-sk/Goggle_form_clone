@@ -17,11 +17,17 @@ export function TitleCard({
       <S.CardContentContainer>
         <S.CardActivator isActivated={isActivated} />
         <S.CardContentWrapper>
-          <S.CardTitle id='standard-basic' variant='standard' value={title} />
+          <S.CardTitle
+            id='standard-basic'
+            variant='standard'
+            value={title}
+            isActivated={isActivated}
+          />
           <S.CardDescription
             id='standard-basic'
             variant='standard'
             value={description}
+            isActivated={isActivated}
             placeholder='설문지 설명'
           />
         </S.CardContentWrapper>
