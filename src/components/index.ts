@@ -7,6 +7,7 @@ export { TitleCard } from 'components/molecules/TitleCard';
 
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
+export { MainContents } from 'components/organisms/MainContents';
 
 // template
 export { Layout } from 'components/template/Layout';
