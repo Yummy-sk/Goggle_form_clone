@@ -1,9 +1,10 @@
+import { addForm } from 'store';
+import { useAppDispatch } from 'hooks';
 import { Layout, Navigation, MainContents, FormAddButton } from 'components';
 
 export function Main() {
-  const onFormAdd = () => {
-    console.log('onFormAdd');
-  };
+  const dispatch = useAppDispatch();
+  const onFormAdd = () => dispatch(addForm());
 
   return (
     <>
