@@ -7,8 +7,10 @@ import {
   duplicateForm,
   setRequired,
   setFormTitle,
+  setFormType,
 } from 'store';
-import { IFormState } from 'types/form';
+import { IFormState, ITypes } from 'types/form';
+import { getStateWhenChangeOption } from './helper';
 import * as S from './MainContents.style';
 
 interface IMainContentsProps {
@@ -74,6 +76,16 @@ export function MainContents({
       );
     };
 
+  const onChangeFormType =
+    ({ formKey }: { formKey: string }) =>
+    ({ type, form }: { type: ITypes; form: IFormState }) => {
+      const nextState = getStateWhenChangeOption({ type, form });
+
+      if (nextState) {
+        dispatch(setFormType({ key: formKey, nextState }));
+      }
+    };
+
   return (
     <S.MainContentsContainer>
       <TitleCard
@@ -92,6 +104,7 @@ export function MainContents({
           onDuplicate={() => onDuplicate({ formKey: form.key })}
           onRequired={() => onRequired({ formKey: form.key })}
           onChangeTitle={onChangeTitle({ formKey: form.key })}
+          onChangeFormType={onChangeFormType({ formKey: form.key })}
         />
       ))}
     </S.MainContentsContainer>

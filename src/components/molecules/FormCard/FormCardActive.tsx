@@ -19,15 +19,8 @@ import {
   CheckBoxInput,
   ShortTextInput,
 } from 'components';
-import { IFormState } from 'types/form';
+import { IFormState, ITypes } from 'types/form';
 import * as S from './FormCardActive.style';
-
-type SelectionTypes =
-  | 'short-text'
-  | 'long-text'
-  | 'radio'
-  | 'checkbox'
-  | 'dropdown';
 
 interface IFormCardActiveProps {
   form: IFormState;
@@ -35,12 +28,19 @@ interface IFormCardActiveProps {
   onDuplicate: () => void;
   onRequired: () => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeFormType: ({
+    type,
+    form,
+  }: {
+    type: ITypes;
+    form: IFormState;
+  }) => void;
 }
 
 interface IForms {
   key: string;
   text: string;
-  value: SelectionTypes;
+  value: ITypes;
   img: JSX.Element;
 }
 
@@ -94,7 +94,7 @@ export function FormInput({
   selection,
 }: {
   form: IFormState;
-  selection: SelectionTypes;
+  selection: ITypes;
 }) {
   switch (selection) {
     case 'short-text':
@@ -142,8 +142,9 @@ export function FormCardActive({
   onDuplicate,
   onRemove,
   onRequired,
+  onChangeFormType,
 }: IFormCardActiveProps) {
-  const [selection, setSelection] = useState<SelectionTypes>('radio');
+  const [selection, setSelection] = useState<ITypes>(form.type);
 
   const forms: Array<IForms> = [
     {
@@ -180,7 +181,9 @@ export function FormCardActive({
 
   const onChange = (e: SelectChangeEvent<unknown>) => {
     const { value } = e.target;
-    setSelection(value as SelectionTypes);
+
+    onChangeFormType({ type: value as ITypes, form });
+    setSelection(value as ITypes);
   };
 
   if (form.isRequired === undefined) return null;

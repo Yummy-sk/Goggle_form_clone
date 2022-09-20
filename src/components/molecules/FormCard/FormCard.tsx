@@ -1,4 +1,4 @@
-import { IFormState } from 'types/form';
+import { IFormState, ITypes } from 'types/form';
 import { FormCardActive } from './FormCardActive';
 import { FormCardInactive } from './FormCardInactive';
 import * as S from './FormCard.style';
@@ -10,6 +10,13 @@ interface IFormCardProps {
   onDuplicate: () => void;
   onRequired: () => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeFormType: ({
+    type,
+    form,
+  }: {
+    type: ITypes;
+    form: IFormState;
+  }) => void;
 }
 
 export function FormCard({
@@ -19,6 +26,7 @@ export function FormCard({
   onDuplicate,
   onRequired,
   onChangeTitle,
+  onChangeFormType,
 }: IFormCardProps) {
   return (
     <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
@@ -29,6 +37,7 @@ export function FormCard({
           onRemove={onRemove}
           onDuplicate={onDuplicate}
           onRequired={onRequired}
+          onChangeFormType={onChangeFormType}
         />
       ) : (
         <FormCardInactive />

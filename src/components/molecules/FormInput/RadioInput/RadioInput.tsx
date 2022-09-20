@@ -108,6 +108,7 @@ function RadioEtcOption({ onEtcAdd }: { onEtcAdd: () => void }) {
 }
 
 export function RadioInput({ form }: { form: IFormState }) {
+  console.log(form);
   const dispatch = useAppDispatch();
   const op = form.options as Array<string>;
   const isEtc = form.isEtc as boolean;
