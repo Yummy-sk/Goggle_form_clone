@@ -8,6 +8,7 @@ import { setOption, setEtc } from 'store';
 import { IFormState } from 'types/form';
 import * as S from './RadioInput.style';
 
+type TypeTypes = 'radio' | 'checkbox';
 interface IOption {
   key: string;
   idx: number;
@@ -17,6 +18,7 @@ interface IOption {
 }
 
 interface IRadioSelectionProps {
+  type: TypeTypes;
   option: {
     idx: number;
     key: string;
@@ -34,12 +36,14 @@ interface IRadioSelectionProps {
 }
 
 interface IRadioAdderProps {
+  type: TypeTypes;
   isEtcIncluded: boolean;
   onAdd: () => void;
   onEtcAdd: () => void;
 }
 
 function RadioSelection({
+  type,
   option,
   optionLength,
   onMouseLeave,
@@ -55,7 +59,8 @@ function RadioSelection({
     <S.RadioSelectionContainer
       onMouseOver={onMouseOver}
       onMouseOut={onMouseLeave}>
-      <S.RadioIcon />
+      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
+
       <S.RadioTextInput
         id='standard-basic'
         variant='standard'
@@ -78,10 +83,15 @@ function RadioSelection({
   );
 }
 
-function RadioAdder({ isEtcIncluded, onAdd, onEtcAdd }: IRadioAdderProps) {
+function RadioAdder({
+  type,
+  isEtcIncluded,
+  onAdd,
+  onEtcAdd,
+}: IRadioAdderProps) {
   return (
     <S.RadioAdderContainer>
-      <S.RadioIcon />
+      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
       <S.RadioAdderButton onClick={onAdd}>옵션 추가</S.RadioAdderButton>
       {!isEtcIncluded && (
         <>
@@ -95,10 +105,16 @@ function RadioAdder({ isEtcIncluded, onAdd, onEtcAdd }: IRadioAdderProps) {
   );
 }
 
-function RadioEtcOption({ onEtcAdd }: { onEtcAdd: () => void }) {
+function RadioEtcOption({
+  type,
+  onEtcAdd,
+}: {
+  type: TypeTypes;
+  onEtcAdd: () => void;
+}) {
   return (
     <S.RadioEtcOptionContainer>
-      <S.RadioIcon />
+      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
       <S.RadioEtcInput id='standard-basic' variant='standard' value='기타...' />
       <IconButton style={{ marginLeft: '4px' }} onClick={onEtcAdd}>
         <CloseIcon />
@@ -107,8 +123,13 @@ function RadioEtcOption({ onEtcAdd }: { onEtcAdd: () => void }) {
   );
 }
 
-export function RadioInput({ form }: { form: IFormState }) {
-  console.log(form);
+export function RadioInput({
+  form,
+  type,
+}: {
+  form: IFormState;
+  type: TypeTypes;
+}) {
   const dispatch = useAppDispatch();
   const op = form.options as Array<string>;
   const isEtc = form.isEtc as boolean;
@@ -244,6 +265,7 @@ export function RadioInput({ form }: { form: IFormState }) {
       {options.map(option => (
         <RadioSelection
           key={option.key}
+          type={type}
           option={option}
           optionLength={options.length}
           onMouseLeave={() => onMouseLeave({ key: option.key })}
@@ -254,8 +276,9 @@ export function RadioInput({ form }: { form: IFormState }) {
           onUpdate={onUpdate({ key: option.key })}
         />
       ))}
-      {isEtcIncluded && <RadioEtcOption onEtcAdd={onEtcAdd} />}
+      {isEtcIncluded && <RadioEtcOption type={type} onEtcAdd={onEtcAdd} />}
       <RadioAdder
+        type={type}
         onAdd={onAdd}
         isEtcIncluded={isEtcIncluded}
         onEtcAdd={onEtcAdd}

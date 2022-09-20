@@ -16,7 +16,6 @@ import {
   RadioInput,
   DropDownInput,
   LongTextInput,
-  CheckBoxInput,
   ShortTextInput,
 } from 'components';
 import { IFormState, ITypes } from 'types/form';
@@ -102,9 +101,9 @@ export function FormInput({
     case 'long-text':
       return <LongTextInput />;
     case 'radio':
-      return <RadioInput form={form} />;
+      return <RadioInput type='radio' form={form} />;
     case 'checkbox':
-      return <CheckBoxInput />;
+      return <RadioInput type='checkbox' form={form} />;
     case 'dropdown':
       return <DropDownInput />;
     default:

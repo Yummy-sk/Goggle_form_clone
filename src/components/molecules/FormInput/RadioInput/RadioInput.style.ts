@@ -1,5 +1,6 @@
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { TextField, Button } from 'components';
 import styled from '@emotion/styled';
 
@@ -30,6 +31,10 @@ export const RadioAdderContainer = styled(RadioSelectionContainer)``;
 export const RadioEtcOptionContainer = styled(RadioSelectionContainer)``;
 
 export const RadioIcon = styled(CircleOutlinedIcon)`
+  color: #c4c4c4;
+`;
+
+export const CheckBoxIcon = styled(CheckBoxOutlineBlankIcon)`
   color: #c4c4c4;
 `;
 
