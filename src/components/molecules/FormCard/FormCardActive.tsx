@@ -13,7 +13,7 @@ import {
   IconButton,
   Select,
   Switch,
-  RadioInput,
+  RadioAndCheckBoxInput,
   DropDownInput,
   LongTextInput,
   ShortTextInput,
@@ -101,9 +101,9 @@ export function FormInput({
     case 'long-text':
       return <LongTextInput />;
     case 'radio':
-      return <RadioInput type='radio' form={form} />;
+      return <RadioAndCheckBoxInput type='radio' form={form} />;
     case 'checkbox':
-      return <RadioInput type='checkbox' form={form} />;
+      return <RadioAndCheckBoxInput type='checkbox' form={form} />;
     case 'dropdown':
       return <DropDownInput />;
     default:

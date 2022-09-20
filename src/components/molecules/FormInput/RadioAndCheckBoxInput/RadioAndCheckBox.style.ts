@@ -4,14 +4,14 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { TextField, Button } from 'components';
 import styled from '@emotion/styled';
 
-export const RadioInputContainer = styled.div`
+export const RadioAndCheckBoxInputContainer = styled.div`
   width: 100%;
   height: fit-content;
 
   padding-top: 16px;
 `;
 
-export const RadioSelectionContainer = styled.div`
+export const RadioAndCheckBoxSelectionContainer = styled.div`
   width: 100%;
   min-height: 40px;
 
@@ -26,9 +26,13 @@ export const RadioSelectionContainer = styled.div`
   }
 `;
 
-export const RadioAdderContainer = styled(RadioSelectionContainer)``;
+export const RadioAndCheckBoxAdderContainer = styled(
+  RadioAndCheckBoxSelectionContainer,
+)``;
 
-export const RadioEtcOptionContainer = styled(RadioSelectionContainer)``;
+export const RadioAndCheckBoxEtcOptionContainer = styled(
+  RadioAndCheckBoxSelectionContainer,
+)``;
 
 export const RadioIcon = styled(CircleOutlinedIcon)`
   color: #c4c4c4;
@@ -38,7 +42,7 @@ export const CheckBoxIcon = styled(CheckBoxOutlineBlankIcon)`
   color: #c4c4c4;
 `;
 
-export const RadioTextInput = styled(TextField)`
+export const RadioAndCheckBoxTextInput = styled(TextField)`
   width: 80%;
   margin-left: 8px;
   & .MuiInput-root::before {
@@ -52,7 +56,7 @@ export const RadioTextInput = styled(TextField)`
   }
 `;
 
-export const RadioEtcInput = styled(TextField)`
+export const RadioAndCheckBoxEtcInput = styled(TextField)`
   margin-left: 8px;
   width: 80%;
   & .MuiInput-root {
@@ -67,7 +71,7 @@ export const RadioEtcInput = styled(TextField)`
   }
 `;
 
-export const RadioAdderButton = styled(Button)`
+export const RadioAndCheckBoxAdderButton = styled(Button)`
   margin: 0 8px;
   padding: 0;
 
@@ -83,12 +87,12 @@ export const RadioAdderButton = styled(Button)`
   }
 `;
 
-export const RadioEtcAddButton = styled(Button)`
+export const RadioAndCheckBoxEtcAddButton = styled(Button)`
   font-size: 16px;
   font-weight: 400;
 `;
 
-export const RadioDragIndicator = styled(DragIndicatorIcon)`
+export const RadioAndCheckBoxDragIndicator = styled(DragIndicatorIcon)`
   color: #dadce0;
 
   cursor: grab;
