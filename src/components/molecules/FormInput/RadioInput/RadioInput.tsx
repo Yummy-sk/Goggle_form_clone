@@ -19,6 +19,7 @@ interface IRadioSelectionProps {
   onBlur: () => void;
   onClick: () => void;
   onDelete: () => void;
+  onUpdate: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IRadioAdderProps {
@@ -35,6 +36,7 @@ function RadioSelection({
   onBlur,
   onClick,
   onDelete,
+  onUpdate,
 }: IRadioSelectionProps) {
   const { value, isMouseOver, isFocused } = option;
 
@@ -49,6 +51,7 @@ function RadioSelection({
         value={value}
         onClick={onClick}
         onBlur={onBlur}
+        onChange={onUpdate}
       />
       {(isMouseOver || isFocused) && (
         <IconButton style={{ marginLeft: '4px' }}>
@@ -164,6 +167,18 @@ export function RadioInput() {
 
   const onEtcAdd = () => setIsEtcIncluded((prev: boolean) => !prev);
 
+  const onUpdate =
+    ({ key }: { key: string }) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+
+      setOptions(
+        options.map(option =>
+          option.key === key ? { ...option, value } : { ...option },
+        ),
+      );
+    };
+
   return (
     <S.RadioInputContainer>
       {options.map(option => (
@@ -176,6 +191,7 @@ export function RadioInput() {
           onBlur={() => onBlur({ key: option.key })}
           onClick={() => onClick({ key: option.key })}
           onDelete={() => onDelete({ key: option.key })}
+          onUpdate={onUpdate({ key: option.key })}
         />
       ))}
       {isEtcIncluded && <RadioEtcOption onEtcAdd={onEtcAdd} />}
