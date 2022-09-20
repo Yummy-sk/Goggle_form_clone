@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
-import { IconButton, Select, Switch } from 'components';
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import ShortTextIcon from '@mui/icons-material/ShortText';
 import LongTextIcon from '@mui/icons-material/Notes';
@@ -10,27 +9,47 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { SelectChangeEvent, Divider, Typography } from '@mui/material';
+import {
+  IconButton,
+  Select,
+  Switch,
+  RadioInput,
+  DropDownInput,
+  LongTextInput,
+  CheckBoxInput,
+  ShortTextInput,
+} from 'components';
 import { IFormState } from 'types/form';
 import * as S from './FormCardActive.style';
+
+type SelectionTypes =
+  | 'short-text'
+  | 'long-text'
+  | 'radio'
+  | 'checkbox'
+  | 'dropdown';
 
 interface IFormCardActiveProps {
   form: IFormState;
   onRemove: () => void;
   onDuplicate: () => void;
   onRequired: () => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IForms {
   key: string;
   text: string;
-  value: string;
+  value: SelectionTypes;
   img: JSX.Element;
 }
 
 interface IFormInfoProps {
+  value: string;
   selection: string;
   forms: Array<IForms>;
   onChange: (e: SelectChangeEvent<unknown>) => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IFormOptionProps {
@@ -40,13 +59,21 @@ interface IFormOptionProps {
   onRequired: () => void;
 }
 
-function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
+function FormInfo({
+  value,
+  selection,
+  forms,
+  onChange,
+  onChangeTitle,
+}: IFormInfoProps) {
   return (
     <S.CardContentInfo>
       <S.CardContentTitle
         id='filled-basic'
         placeholder='질문'
         variant='filled'
+        value={value}
+        onChange={onChangeTitle}
       />
       <IconButton>
         <ImageIcon />
@@ -60,6 +87,29 @@ function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
       </Select>
     </S.CardContentInfo>
   );
+}
+
+export function FormInput({
+  form,
+  selection,
+}: {
+  form: IFormState;
+  selection: SelectionTypes;
+}) {
+  switch (selection) {
+    case 'short-text':
+      return <ShortTextInput />;
+    case 'long-text':
+      return <LongTextInput />;
+    case 'radio':
+      return <RadioInput form={form} />;
+    case 'checkbox':
+      return <CheckBoxInput />;
+    case 'dropdown':
+      return <DropDownInput />;
+    default:
+      return <ShortTextInput />;
+  }
 }
 
 function FormOptions({
@@ -88,11 +138,12 @@ function FormOptions({
 
 export function FormCardActive({
   form,
+  onChangeTitle,
   onDuplicate,
   onRemove,
   onRequired,
 }: IFormCardActiveProps) {
-  const [selection, setSelection] = useState<string>('radio');
+  const [selection, setSelection] = useState<SelectionTypes>('radio');
 
   const forms: Array<IForms> = [
     {
@@ -129,7 +180,7 @@ export function FormCardActive({
 
   const onChange = (e: SelectChangeEvent<unknown>) => {
     const { value } = e.target;
-    setSelection(value as string);
+    setSelection(value as SelectionTypes);
   };
 
   if (form.isRequired === undefined) return null;
@@ -141,7 +192,14 @@ export function FormCardActive({
         <S.CardContentHeader>
           <S.DragIndicator />
         </S.CardContentHeader>
-        <FormInfo selection={selection} forms={forms} onChange={onChange} />
+        <FormInfo
+          value={form.title}
+          selection={selection}
+          forms={forms}
+          onChange={onChange}
+          onChangeTitle={onChangeTitle}
+        />
+        <FormInput form={form} selection={selection} />
         <FormOptions
           isRequired={form.isRequired}
           onDuplicate={onDuplicate}

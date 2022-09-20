@@ -6,4 +6,7 @@ export {
   removeForm,
   duplicateForm,
   setRequired,
+  setFormTitle,
+  setOption,
+  setEtc,
 } from 'store/formSlice';

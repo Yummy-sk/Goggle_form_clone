@@ -6,6 +6,7 @@ import {
   removeForm,
   duplicateForm,
   setRequired,
+  setFormTitle,
 } from 'store';
 import { IFormState } from 'types/form';
 import * as S from './MainContents.style';
@@ -65,6 +66,14 @@ export function MainContents({
     );
   };
 
+  const onChangeTitle =
+    ({ formKey }: { formKey: string }) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(
+        setFormTitle({ key: formKey, title: e.target.value, state: items }),
+      );
+    };
+
   return (
     <S.MainContentsContainer>
       <TitleCard
@@ -82,6 +91,7 @@ export function MainContents({
           onRemove={() => onRemove({ formKey: form.key })}
           onDuplicate={() => onDuplicate({ formKey: form.key })}
           onRequired={() => onRequired({ formKey: form.key })}
+          onChangeTitle={onChangeTitle({ formKey: form.key })}
         />
       ))}
     </S.MainContentsContainer>

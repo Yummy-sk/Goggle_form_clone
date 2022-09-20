@@ -62,6 +62,8 @@ export const formSlice = createSlice({
           type: 'radio',
           isActivated: true,
           isRequired: false,
+          options: ['옵션 1'],
+          isEtc: false,
         },
       ];
 
@@ -136,6 +138,65 @@ export const formSlice = createSlice({
         };
       },
     },
+    setFormTitle: {
+      reducer: (state: IState, action: IAction<INextState>) => {
+        state.items = action.payload.nextState;
+      },
+      prepare: ({
+        key,
+        state,
+        title,
+      }: {
+        key: string;
+        state: Array<IFormState>;
+        title: string;
+      }): IAction<INextState> => {
+        const nextState = state.map(item =>
+          item.key === key ? { ...item, title } : item,
+        );
+
+        return {
+          payload: {
+            nextState,
+          },
+        };
+      },
+    },
+    setOption: (
+      state: IState,
+      action: IAction<{
+        key: string;
+        options: Array<string> | string;
+      }>,
+    ) => {
+      const { key, options } = action.payload;
+
+      const nextState = state.items.map(item => {
+        if (item.key === key) {
+          return { ...item, options };
+        }
+
+        return item;
+      });
+
+      state.items = nextState;
+    },
+    setEtc: (
+      state: IState,
+      action: IAction<{ key: string; isEtc: boolean }>,
+    ) => {
+      const { key, isEtc } = action.payload;
+
+      const nextState = state.items.map(item => {
+        if (item.key === key) {
+          return { ...item, isEtc };
+        }
+
+        return item;
+      });
+
+      state.items = nextState;
+    },
   },
 });
 
@@ -146,6 +207,9 @@ export const {
   removeForm,
   duplicateForm,
   setRequired,
+  setFormTitle,
+  setOption,
+  setEtc,
 } = formSlice.actions;
 
 export default formSlice.reducer;

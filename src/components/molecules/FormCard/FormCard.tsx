@@ -9,6 +9,7 @@ interface IFormCardProps {
   onRemove: () => void;
   onDuplicate: () => void;
   onRequired: () => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function FormCard({
@@ -17,12 +18,14 @@ export function FormCard({
   onRemove,
   onDuplicate,
   onRequired,
+  onChangeTitle,
 }: IFormCardProps) {
   return (
     <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
       {form.isActivated ? (
         <FormCardActive
           form={form}
+          onChangeTitle={onChangeTitle}
           onRemove={onRemove}
           onDuplicate={onDuplicate}
           onRequired={onRequired}
