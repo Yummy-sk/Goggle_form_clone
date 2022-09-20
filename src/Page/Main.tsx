@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { addForm } from 'store';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Layout, Navigation, MainContents, FormAddButton } from 'components';
@@ -33,6 +34,7 @@ export function Main() {
 
   return (
     <>
+      <Helmet title={titleState.title} />
       <Navigation title={titleState.title} />
       <Layout isMain>
         <MainContents
