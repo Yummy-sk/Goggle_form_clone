@@ -71,7 +71,17 @@ function RadioAdder({ onAdd }: IRadioAdderProps) {
   );
 }
 
-function RadioEtcOption() {}
+function RadioEtcOption() {
+  return (
+    <S.RadioEtcOptionContainer>
+      <S.RadioIcon />
+      <S.RadioEtcInput id='standard-basic' variant='standard' value='기타...' />
+      <IconButton style={{ marginLeft: '4px' }}>
+        <CloseIcon />
+      </IconButton>
+    </S.RadioEtcOptionContainer>
+  );
+}
 
 export function RadioInput() {
   const [options, setOptions] = useState([
@@ -144,6 +154,7 @@ export function RadioInput() {
           onClick={() => onClick({ key: option.key })}
         />
       ))}
+      <RadioEtcOption />
       <RadioAdder onAdd={onAdd} />
     </S.RadioInputContainer>
   );

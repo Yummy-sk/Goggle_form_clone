@@ -46,7 +46,20 @@ export const RadioTextInput = styled(TextField)`
   }
 `;
 
-export const RadioEtcInput = styled(TextField)``;
+export const RadioEtcInput = styled(TextField)`
+  margin-left: 8px;
+  width: 80%;
+  & .MuiInput-root {
+    color: #c4c4c4;
+  }
+  & .MuiInput-root::before {
+    border: transparent;
+  }
+  & .MuiInput-root:hover::before {
+    border-bottom: 1px solid #dadce0;
+    border-style: dotted;
+  }
+`;
 
 export const RadioAdderButton = styled(Button)`
   margin: 0 8px;
@@ -61,9 +74,6 @@ export const RadioAdderButton = styled(Button)`
   &:hover {
     background-color: transparent;
     border-bottom: 1px solid #dadce0;
-  }
-  &:click {
-    background-color: transparent;
   }
 `;
 
