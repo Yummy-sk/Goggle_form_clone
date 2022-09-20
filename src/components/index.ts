@@ -12,7 +12,7 @@ export { TitleCard } from 'components/molecules/TitleCard';
 export { FormCard } from 'components/molecules/FormCard';
 export { FormAddButton } from 'components/molecules/FormAddButton';
 export {
-  RadioInput,
+  RadioAndCheckBoxInput,
   DropDownInput,
   LongTextInput,
   CheckBoxInput,

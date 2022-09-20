@@ -6,8 +6,9 @@ import { IconButton } from 'components';
 import { useAppDispatch } from 'hooks';
 import { setOption, setEtc } from 'store';
 import { IFormState } from 'types/form';
-import * as S from './RadioInput.style';
+import * as S from './RadioAndCheckBox.style';
 
+type TypeTypes = 'radio' | 'checkbox';
 interface IOption {
   key: string;
   idx: number;
@@ -16,7 +17,8 @@ interface IOption {
   isFocused: boolean;
 }
 
-interface IRadioSelectionProps {
+interface IRadioAndCheckBoxSelectionProps {
+  type: TypeTypes;
   option: {
     idx: number;
     key: string;
@@ -33,13 +35,15 @@ interface IRadioSelectionProps {
   onUpdate: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-interface IRadioAdderProps {
+interface IRadioAndCheckBoxAdderProps {
+  type: TypeTypes;
   isEtcIncluded: boolean;
   onAdd: () => void;
   onEtcAdd: () => void;
 }
 
-function RadioSelection({
+function RadioAndCheckBoxSelection({
+  type,
   option,
   optionLength,
   onMouseLeave,
@@ -48,15 +52,16 @@ function RadioSelection({
   onClick,
   onDelete,
   onUpdate,
-}: IRadioSelectionProps) {
+}: IRadioAndCheckBoxSelectionProps) {
   const { value, isMouseOver, isFocused } = option;
 
   return (
-    <S.RadioSelectionContainer
+    <S.RadioAndCheckBoxSelectionContainer
       onMouseOver={onMouseOver}
       onMouseOut={onMouseLeave}>
-      <S.RadioIcon />
-      <S.RadioTextInput
+      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
+
+      <S.RadioAndCheckBoxTextInput
         id='standard-basic'
         variant='standard'
         value={value}
@@ -74,41 +79,63 @@ function RadioSelection({
           <CloseIcon />
         </IconButton>
       )}
-    </S.RadioSelectionContainer>
+    </S.RadioAndCheckBoxSelectionContainer>
   );
 }
 
-function RadioAdder({ isEtcIncluded, onAdd, onEtcAdd }: IRadioAdderProps) {
+function RadioAndCheckBoxAdder({
+  type,
+  isEtcIncluded,
+  onAdd,
+  onEtcAdd,
+}: IRadioAndCheckBoxAdderProps) {
   return (
-    <S.RadioAdderContainer>
-      <S.RadioIcon />
-      <S.RadioAdderButton onClick={onAdd}>옵션 추가</S.RadioAdderButton>
+    <S.RadioAndCheckBoxAdderContainer>
+      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
+      <S.RadioAndCheckBoxAdderButton onClick={onAdd}>
+        옵션 추가
+      </S.RadioAndCheckBoxAdderButton>
       {!isEtcIncluded && (
         <>
           <span>또는</span>
-          <S.RadioEtcAddButton onClick={onEtcAdd}>
+          <S.RadioAndCheckBoxEtcAddButton onClick={onEtcAdd}>
             &lsquo;기타&lsquo; 추가
-          </S.RadioEtcAddButton>
+          </S.RadioAndCheckBoxEtcAddButton>
         </>
       )}
-    </S.RadioAdderContainer>
+    </S.RadioAndCheckBoxAdderContainer>
   );
 }
 
-function RadioEtcOption({ onEtcAdd }: { onEtcAdd: () => void }) {
+function RadioAndCheckBoxEtcOption({
+  type,
+  onEtcAdd,
+}: {
+  type: TypeTypes;
+  onEtcAdd: () => void;
+}) {
   return (
-    <S.RadioEtcOptionContainer>
-      <S.RadioIcon />
-      <S.RadioEtcInput id='standard-basic' variant='standard' value='기타...' />
+    <S.RadioAndCheckBoxEtcOptionContainer>
+      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
+      <S.RadioAndCheckBoxEtcInput
+        id='standard-basic'
+        variant='standard'
+        value='기타...'
+      />
       <IconButton style={{ marginLeft: '4px' }} onClick={onEtcAdd}>
         <CloseIcon />
       </IconButton>
-    </S.RadioEtcOptionContainer>
+    </S.RadioAndCheckBoxEtcOptionContainer>
   );
 }
 
-export function RadioInput({ form }: { form: IFormState }) {
-  console.log(form);
+export function RadioAndCheckBoxInput({
+  form,
+  type,
+}: {
+  form: IFormState;
+  type: TypeTypes;
+}) {
   const dispatch = useAppDispatch();
   const op = form.options as Array<string>;
   const isEtc = form.isEtc as boolean;
@@ -240,10 +267,11 @@ export function RadioInput({ form }: { form: IFormState }) {
     };
 
   return (
-    <S.RadioInputContainer>
+    <S.RadioAndCheckBoxInputContainer>
       {options.map(option => (
-        <RadioSelection
+        <RadioAndCheckBoxSelection
           key={option.key}
+          type={type}
           option={option}
           optionLength={options.length}
           onMouseLeave={() => onMouseLeave({ key: option.key })}
@@ -254,12 +282,15 @@ export function RadioInput({ form }: { form: IFormState }) {
           onUpdate={onUpdate({ key: option.key })}
         />
       ))}
-      {isEtcIncluded && <RadioEtcOption onEtcAdd={onEtcAdd} />}
-      <RadioAdder
+      {isEtcIncluded && (
+        <RadioAndCheckBoxEtcOption type={type} onEtcAdd={onEtcAdd} />
+      )}
+      <RadioAndCheckBoxAdder
+        type={type}
         onAdd={onAdd}
         isEtcIncluded={isEtcIncluded}
         onEtcAdd={onEtcAdd}
       />
-    </S.RadioInputContainer>
+    </S.RadioAndCheckBoxInputContainer>
   );
 }
