@@ -1,36 +1,39 @@
-import { useMemo } from 'react';
 import { TitleCard, FormCard } from 'components';
-import { useAppSelector, useAppDispatch } from 'hooks';
-import { setActivated, removeForm, duplicateForm, setRequired } from 'store';
+import { useAppDispatch } from 'hooks';
+import {
+  updateTitleForm,
+  setActivated,
+  removeForm,
+  duplicateForm,
+  setRequired,
+} from 'store';
 import { IFormState } from 'types/form';
 import * as S from './MainContents.style';
 
-interface IReudceState {
-  titleState: IFormState | null;
+interface IMainContentsProps {
+  items: Array<IFormState>;
+  titleState: IFormState;
   formState: Array<IFormState>;
 }
 
-export function MainContents() {
+export function MainContents({
+  items,
+  titleState,
+  formState,
+}: IMainContentsProps) {
   const dispatch = useAppDispatch();
-  const { items } = useAppSelector(state => state.form);
-  const { titleState, formState } = useMemo(
-    () =>
-      items.reduce(
-        (acc: IReudceState, cur: IFormState) => {
-          if (cur.type === 'title') return { ...acc, titleState: cur };
-          return { ...acc, formState: [...acc.formState, cur] };
-        },
-        {
-          titleState: null,
-          formState: [],
-        } as IReudceState,
-      ),
-    [items],
-  );
-
-  if (!titleState) return null;
 
   const { key, title, description, isActivated } = titleState;
+
+  const onUpdateFormTitle = ({
+    e,
+    type,
+  }: {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+    type: 'title' | 'description';
+  }) => {
+    dispatch(updateTitleForm({ type, value: e.target.value }));
+  };
 
   const onActivate = ({ formKey }: { formKey: string }) =>
     dispatch(setActivated({ key: formKey }));
@@ -68,6 +71,7 @@ export function MainContents() {
         title={title}
         description={description || ''}
         isActivated={isActivated}
+        onUpdateFormTitle={onUpdateFormTitle}
         onActivate={() => onActivate({ formKey: key })}
       />
       {formState.map(form => (
