@@ -13,6 +13,7 @@ export interface IFormState {
   isRequired?: boolean;
   isActivated: boolean;
   options?: string | Array<string>;
+  isEtc?: boolean;
 }
 
 export interface IState {

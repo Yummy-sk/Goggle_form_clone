@@ -3,7 +3,18 @@ import { nanoid } from '@reduxjs/toolkit';
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from 'components';
+import { useAppDispatch } from 'hooks';
+import { setOption, setEtc } from 'store';
+import { IFormState } from 'types/form';
 import * as S from './RadioInput.style';
+
+interface IOption {
+  key: string;
+  idx: number;
+  value: string;
+  isMouseOver: boolean;
+  isFocused: boolean;
+}
 
 interface IRadioSelectionProps {
   option: {
@@ -96,17 +107,22 @@ function RadioEtcOption({ onEtcAdd }: { onEtcAdd: () => void }) {
   );
 }
 
-export function RadioInput() {
-  const [options, setOptions] = useState([
-    {
-      idx: 1,
+export function RadioInput({ form }: { form: IFormState }) {
+  const dispatch = useAppDispatch();
+  const op = form.options as Array<string>;
+  const isEtc = form.isEtc as boolean;
+
+  const [options, setOptions] = useState<Array<IOption>>([
+    ...op.map((o, idx) => ({
+      idx,
       key: nanoid(),
-      value: '옵션 1',
+      value: o,
       isMouseOver: false,
       isFocused: false,
-    },
+    })),
   ]);
-  const [isEtcIncluded, setIsEtcIncluded] = useState<boolean>(false);
+
+  const [isEtcIncluded, setIsEtcIncluded] = useState<boolean>(isEtc);
 
   const onMouseOver = ({ key }: { key: string }) => {
     setOptions(
@@ -148,12 +164,19 @@ export function RadioInput() {
         (option, idx) => option.key !== key && { ...option, idx: idx + 1 },
       );
 
+      dispatch(
+        setOption({
+          key: form.key,
+          options: newOptions.map(option => option.value),
+        }),
+      );
+
       setOptions(newOptions);
     }
   };
 
   const onAdd = () => {
-    setOptions([
+    const nextState = [
       ...options.map(option => ({ ...option, isFocused: false })),
       {
         idx: options.length + 1,
@@ -162,20 +185,56 @@ export function RadioInput() {
         isMouseOver: false,
         isFocused: false,
       },
-    ]);
+    ];
+
+    dispatch(
+      setOption({
+        key: form.key,
+        options: nextState.map(state => state.value),
+      }),
+    );
+    setOptions(nextState);
   };
 
-  const onEtcAdd = () => setIsEtcIncluded((prev: boolean) => !prev);
+  const onEtcAdd = () => {
+    const nextState = !isEtcIncluded;
+
+    if (nextState) {
+      dispatch(
+        setEtc({
+          key: form.key,
+          isEtc: true,
+        }),
+      );
+
+      setIsEtcIncluded(nextState);
+      return;
+    }
+
+    dispatch(
+      setEtc({
+        key: form.key,
+        isEtc: false,
+      }),
+    );
+
+    setIsEtcIncluded(nextState);
+  };
 
   const onUpdate =
     ({ key }: { key: string }) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
+      const nextState = options.map(option =>
+        option.key === key ? { ...option, value } : { ...option },
+      );
 
-      setOptions(
-        options.map(option =>
-          option.key === key ? { ...option, value } : { ...option },
-        ),
+      setOptions(nextState);
+      dispatch(
+        setOption({
+          key: form.key,
+          options: nextState.map(state => state.value),
+        }),
       );
     };
 

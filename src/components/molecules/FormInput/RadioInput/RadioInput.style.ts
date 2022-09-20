@@ -1,4 +1,5 @@
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { TextField, Button } from 'components';
 import styled from '@emotion/styled';
 
@@ -80,4 +81,10 @@ export const RadioAdderButton = styled(Button)`
 export const RadioEtcAddButton = styled(Button)`
   font-size: 16px;
   font-weight: 400;
+`;
+
+export const RadioDragIndicator = styled(DragIndicatorIcon)`
+  color: #dadce0;
+
+  cursor: grab;
 `;

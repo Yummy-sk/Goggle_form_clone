@@ -34,6 +34,7 @@ interface IFormCardActiveProps {
   onRemove: () => void;
   onDuplicate: () => void;
   onRequired: () => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IForms {
@@ -44,9 +45,11 @@ interface IForms {
 }
 
 interface IFormInfoProps {
+  value: string;
   selection: string;
   forms: Array<IForms>;
   onChange: (e: SelectChangeEvent<unknown>) => void;
+  onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IFormOptionProps {
@@ -56,13 +59,21 @@ interface IFormOptionProps {
   onRequired: () => void;
 }
 
-function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
+function FormInfo({
+  value,
+  selection,
+  forms,
+  onChange,
+  onChangeTitle,
+}: IFormInfoProps) {
   return (
     <S.CardContentInfo>
       <S.CardContentTitle
         id='filled-basic'
         placeholder='질문'
         variant='filled'
+        value={value}
+        onChange={onChangeTitle}
       />
       <IconButton>
         <ImageIcon />
@@ -78,14 +89,20 @@ function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
   );
 }
 
-export function FormInput({ selection }: { selection: SelectionTypes }) {
+export function FormInput({
+  form,
+  selection,
+}: {
+  form: IFormState;
+  selection: SelectionTypes;
+}) {
   switch (selection) {
     case 'short-text':
       return <ShortTextInput />;
     case 'long-text':
       return <LongTextInput />;
     case 'radio':
-      return <RadioInput />;
+      return <RadioInput form={form} />;
     case 'checkbox':
       return <CheckBoxInput />;
     case 'dropdown':
@@ -121,6 +138,7 @@ function FormOptions({
 
 export function FormCardActive({
   form,
+  onChangeTitle,
   onDuplicate,
   onRemove,
   onRequired,
@@ -174,8 +192,14 @@ export function FormCardActive({
         <S.CardContentHeader>
           <S.DragIndicator />
         </S.CardContentHeader>
-        <FormInfo selection={selection} forms={forms} onChange={onChange} />
-        <FormInput selection={selection} />
+        <FormInfo
+          value={form.title}
+          selection={selection}
+          forms={forms}
+          onChange={onChange}
+          onChangeTitle={onChangeTitle}
+        />
+        <FormInput form={form} selection={selection} />
         <FormOptions
           isRequired={form.isRequired}
           onDuplicate={onDuplicate}
