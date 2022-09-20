@@ -1,10 +1,19 @@
 import { nanoid } from 'nanoid';
+import { updateTitleForm } from 'store';
+import { useAppDispatch } from 'hooks';
 import view from 'assets/img/view.png';
 import main_logo from 'assets/img/forms.png';
 import * as S from './Navigation.style';
 
 export function Navigation({ title }: { title: string }) {
-  const formTitle = title || '제목 없는 설문지';
+  const formTitle = title;
+  const dispatch = useAppDispatch();
+
+  const onUpdateTitle = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    dispatch(updateTitleForm({ type: 'title', value: e.target.value }));
+  };
 
   return (
     <S.NavBar position='fixed'>
@@ -17,6 +26,7 @@ export function Navigation({ title }: { title: string }) {
             id='standard-basic'
             variant='standard'
             value={formTitle}
+            onChange={onUpdateTitle}
           />
         </S.LeftContentWrapper>
         <S.ResultIcon>

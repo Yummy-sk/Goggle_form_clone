@@ -4,6 +4,13 @@ interface ITitleCardProps {
   title: string;
   description: string;
   isActivated: boolean;
+  onUpdateFormTitle: ({
+    e,
+    type,
+  }: {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+    type: 'title' | 'description';
+  }) => void;
   onActivate: () => void;
 }
 
@@ -11,6 +18,7 @@ export function TitleCard({
   title,
   description,
   isActivated,
+  onUpdateFormTitle,
   onActivate,
 }: ITitleCardProps) {
   return (
@@ -25,6 +33,7 @@ export function TitleCard({
             name='title'
             value={title}
             isActivated={isActivated}
+            onChange={e => onUpdateFormTitle({ e, type: 'title' })}
           />
           <S.CardDescription
             id='standard-basic'
@@ -33,6 +42,7 @@ export function TitleCard({
             value={description}
             isActivated={isActivated}
             placeholder='설문지 설명'
+            onChange={e => onUpdateFormTitle({ e, type: 'description' })}
           />
         </S.CardContentWrapper>
       </S.CardContentContainer>

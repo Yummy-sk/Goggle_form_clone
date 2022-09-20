@@ -5,6 +5,8 @@ import {
   IRemoveFormProps,
   IDuplateFormProps,
   ISetRequiredProps,
+  ITitleForm,
+  INextState,
 } from 'types/store';
 import { IState, IFormState } from 'types/form';
 
@@ -25,6 +27,17 @@ export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
+    updateTitleForm: (state, action: IAction<ITitleForm>) => {
+      const { type, value } = action.payload;
+
+      if (type === 'title') {
+        state.items[0].title = value;
+      }
+
+      if (type === 'description') {
+        state.items[0].description = value;
+      }
+    },
     setActivated: (state, action) => {
       const { key } = action.payload;
       const nextState = state.items.map(item =>
@@ -55,10 +68,10 @@ export const formSlice = createSlice({
       state.items = nextState;
     },
     removeForm: {
-      reducer: (state: IState, action: IAction) => {
+      reducer: (state: IState, action: IAction<INextState>) => {
         state.items = action.payload.nextState;
       },
-      prepare: ({ key, state }: IRemoveFormProps): IAction => {
+      prepare: ({ key, state }: IRemoveFormProps): IAction<INextState> => {
         const nextState = state
           .filter(item => item.key !== key)
           .map((item, idx) => ({
@@ -75,10 +88,13 @@ export const formSlice = createSlice({
       },
     },
     duplicateForm: {
-      reducer: (state: IState, action: IAction) => {
+      reducer: (state: IState, action: IAction<INextState>) => {
         state.items = action.payload.nextState;
       },
-      prepare: ({ state, targetItem }: IDuplateFormProps): IAction => {
+      prepare: ({
+        state,
+        targetItem,
+      }: IDuplateFormProps): IAction<INextState> => {
         const { idx } = targetItem;
         const nextState = state.reduce(
           (acc: Array<IFormState>, item: IFormState, index: number) => {
@@ -105,10 +121,10 @@ export const formSlice = createSlice({
       },
     },
     setRequired: {
-      reducer: (state: IState, action: IAction) => {
+      reducer: (state: IState, action: IAction<INextState>) => {
         state.items = action.payload.nextState;
       },
-      prepare: ({ key, state }: ISetRequiredProps): IAction => {
+      prepare: ({ key, state }: ISetRequiredProps): IAction<INextState> => {
         const nextState = state.map(item =>
           item.key === key ? { ...item, isRequired: !item.isRequired } : item,
         );
@@ -123,7 +139,13 @@ export const formSlice = createSlice({
   },
 });
 
-export const { setActivated, addForm, removeForm, duplicateForm, setRequired } =
-  formSlice.actions;
+export const {
+  updateTitleForm,
+  setActivated,
+  addForm,
+  removeForm,
+  duplicateForm,
+  setRequired,
+} = formSlice.actions;
 
 export default formSlice.reducer;

@@ -5,10 +5,12 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export interface IAction {
-  payload: {
-    nextState: Array<IFormState>;
-  };
+export interface IAction<T> {
+  payload: T;
+}
+
+export interface INextState {
+  nextState: Array<IFormState>;
 }
 
 export interface IRemoveFormProps {
@@ -24,3 +26,8 @@ export interface IDuplateFormProps {
 export type ISetRequiredProps = IRemoveFormProps;
 
 export type ActionHandler = ({ formKey }: { formKey: string }) => void;
+
+export interface ITitleForm {
+  type: 'title' | 'description';
+  value: string;
+}
