@@ -35,33 +35,24 @@ export const formSlice = createSlice({
 
       state.items = nextState;
     },
-    addForm: {
-      reducer: (state: IState, action: IAction) => {
-        state.items = action.payload.nextState;
-      },
-      prepare: ({ state }: { state: Array<IFormState> }): IAction => {
-        const nextState: Array<IFormState> = [
-          ...state.map((item, idx) => ({
-            ...item,
-            idx: idx + 1,
-            isActivated: false,
-          })),
-          {
-            idx: state.length + 1,
-            key: nanoid(),
-            title: '',
-            type: 'radio',
-            isActivated: true,
-            isRequired: false,
-          },
-        ];
+    addForm: (state: IState) => {
+      const nextState: Array<IFormState> = [
+        ...state.items.map((item, idx) => ({
+          ...item,
+          idx: idx + 1,
+          isActivated: false,
+        })),
+        {
+          idx: state.items.length + 1,
+          key: nanoid(),
+          title: '',
+          type: 'radio',
+          isActivated: true,
+          isRequired: false,
+        },
+      ];
 
-        return {
-          payload: {
-            nextState,
-          },
-        };
-      },
+      state.items = nextState;
     },
     removeForm: {
       reducer: (state: IState, action: IAction) => {

@@ -22,3 +22,5 @@ export interface IDuplateFormProps {
 }
 
 export type ISetRequiredProps = IRemoveFormProps;
+
+export type ActionHandler = ({ formKey }: { formKey: string }) => void;

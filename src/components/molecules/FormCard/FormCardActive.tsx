@@ -10,7 +10,15 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { SelectChangeEvent, Divider, Typography } from '@mui/material';
+import { IFormState } from 'types/form';
 import * as S from './FormCardActive.style';
+
+interface IFormCardActiveProps {
+  form: IFormState;
+  onRemove: () => void;
+  onDuplicate: () => void;
+  onRequired: () => void;
+}
 
 interface IForms {
   key: string;
@@ -28,7 +36,7 @@ interface IFormInfoProps {
 interface IFormOptionProps {
   isRequired: boolean;
   onDuplicate: () => void;
-  onDelete: () => void;
+  onRemove: () => void;
   onRequired: () => void;
 }
 
@@ -57,7 +65,7 @@ function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
 function FormOptions({
   isRequired,
   onDuplicate,
-  onDelete,
+  onRemove,
   onRequired,
 }: IFormOptionProps) {
   return (
@@ -67,7 +75,7 @@ function FormOptions({
         <IconButton onClick={onDuplicate}>
           <ContentCopyRoundedIcon style={{ width: '30px', height: '30px' }} />
         </IconButton>
-        <IconButton onClick={onDelete}>
+        <IconButton onClick={onRemove}>
           <DeleteOutlineIcon style={{ width: '30px', height: '30px' }} />
         </IconButton>
         <Divider orientation='vertical' flexItem />
@@ -78,9 +86,13 @@ function FormOptions({
   );
 }
 
-export function FormCardActive() {
+export function FormCardActive({
+  form,
+  onDuplicate,
+  onRemove,
+  onRequired,
+}: IFormCardActiveProps) {
   const [selection, setSelection] = useState<string>('radio');
-  const [isRequired, setIsRequired] = useState<boolean>(false);
 
   const forms: Array<IForms> = [
     {
@@ -120,9 +132,7 @@ export function FormCardActive() {
     setSelection(value as string);
   };
 
-  const onDuplicate = () => {};
-  const onDelete = () => {};
-  const onRequired = () => setIsRequired(prev => !prev);
+  if (form.isRequired === undefined) return null;
 
   return (
     <S.CardContainer>
@@ -133,9 +143,9 @@ export function FormCardActive() {
         </S.CardContentHeader>
         <FormInfo selection={selection} forms={forms} onChange={onChange} />
         <FormOptions
-          isRequired={isRequired}
+          isRequired={form.isRequired}
           onDuplicate={onDuplicate}
-          onDelete={onDelete}
+          onRemove={onRemove}
           onRequired={onRequired}
         />
       </S.CardContentWrapper>
