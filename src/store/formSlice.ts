@@ -103,8 +103,8 @@ export const formSlice = createSlice({
             if (item.idx === idx) {
               const nextItem = [
                 ...acc,
-                { ...item, idx: index + 1 },
-                { ...item, idx: index + 2, key: nanoid() },
+                { ...item, idx: index + 1, isActivated: false },
+                { ...item, idx: index + 2, key: nanoid(), isActivated: true },
               ];
 
               return nextItem;

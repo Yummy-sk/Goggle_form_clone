@@ -50,14 +50,18 @@ export function MainContents({
     );
   };
 
-  const onDuplicate = ({ formKey }: { formKey: string }) => {
-    dispatch(
-      duplicateForm({
-        state: items,
-        targetItem: items.find(item => item.key === formKey) as IFormState,
-      }),
-    );
-  };
+  const onDuplicate =
+    ({ formKey }: { formKey: string }) =>
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+
+      dispatch(
+        duplicateForm({
+          state: items,
+          targetItem: items.find(item => item.key === formKey) as IFormState,
+        }),
+      );
+    };
 
   const onRequired = ({ formKey }: { formKey: string }) => {
     dispatch(
@@ -101,7 +105,7 @@ export function MainContents({
           form={form}
           onActivate={() => onActivate({ formKey: form.key })}
           onRemove={() => onRemove({ formKey: form.key })}
-          onDuplicate={() => onDuplicate({ formKey: form.key })}
+          onDuplicate={onDuplicate({ formKey: form.key })}
           onRequired={() => onRequired({ formKey: form.key })}
           onChangeTitle={onChangeTitle({ formKey: form.key })}
           onChangeFormType={onChangeFormType({ formKey: form.key })}
