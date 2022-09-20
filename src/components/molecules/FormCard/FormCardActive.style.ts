@@ -1,4 +1,4 @@
-import { CardContent, TextField } from '@mui/material';
+import { CardContent, TextField, MenuItem } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import styled from '@emotion/styled';
 
@@ -48,6 +48,10 @@ export const DragIndicator = styled(DragIndicatorIcon)`
 export const CardContentInfo = styled.div`
   width: 100%;
   height: fit-content;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const CardContentTitle = styled(TextField)`
@@ -60,5 +64,14 @@ export const CardContentTitle = styled(TextField)`
   & input {
     width: 100%;
     padding: 16px;
+  }
+`;
+
+export const CardSelectItem = styled(MenuItem)`
+  width: 100%;
+
+  & svg {
+    margin-right: 16px;
+    color: #444;
   }
 `;

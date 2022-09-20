@@ -1,8 +1,17 @@
-import { FormControl, Select, MenuItem } from '@mui/material';
+import { FormControl, Select } from '@mui/material';
 import styled from '@emotion/styled';
 
-export const FormControlContainer = styled(FormControl)``;
+export const FormControlContainer = styled(FormControl)`
+  width: 200px;
+`;
 
-export const FormSelect = styled(Select)``;
+export const FormSelect = styled(Select)`
+  & .MuiSelect-select {
+    display: flex;
+    align-items: center;
 
-export const FormMenuItem = styled(MenuItem)``;
+    & > svg {
+      margin-right: 16px;
+    }
+  }
+`;

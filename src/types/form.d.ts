@@ -6,7 +6,7 @@ export interface IFormState {
   type:
     | 'short-text'
     | 'long-text'
-    | 'multi'
+    | 'radio'
     | 'checkbox'
     | 'dropdown'
     | 'title';
