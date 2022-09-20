@@ -1,15 +1,16 @@
+export type ITypes =
+  | 'short-text'
+  | 'long-text'
+  | 'radio'
+  | 'checkbox'
+  | 'dropdown'
+  | 'title';
 export interface IFormState {
   idx: number;
   key: string;
   title: string;
   description?: string;
-  type:
-    | 'short-text'
-    | 'long-text'
-    | 'radio'
-    | 'checkbox'
-    | 'dropdown'
-    | 'title';
+  type: ITypes;
   isRequired?: boolean;
   isActivated: boolean;
   options?: string | Array<string>;

@@ -9,4 +9,5 @@ export {
   setFormTitle,
   setOption,
   setEtc,
+  setFormType,
 } from 'store/formSlice';
