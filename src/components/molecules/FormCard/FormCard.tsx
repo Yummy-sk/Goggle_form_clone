@@ -7,7 +7,7 @@ interface IFormCardProps {
   form: IFormState;
   onActivate: () => void;
   onRemove: () => void;
-  onDuplicate: () => void;
+  onDuplicate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onRequired: () => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeFormType: ({
