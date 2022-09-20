@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
-import { IconButton, Select, Switch } from 'components';
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import ShortTextIcon from '@mui/icons-material/ShortText';
 import LongTextIcon from '@mui/icons-material/Notes';
@@ -10,8 +9,25 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { SelectChangeEvent, Divider, Typography } from '@mui/material';
+import {
+  IconButton,
+  Select,
+  Switch,
+  RadioInput,
+  DropDownInput,
+  LongTextInput,
+  CheckBoxInput,
+  ShortTextInput,
+} from 'components';
 import { IFormState } from 'types/form';
 import * as S from './FormCardActive.style';
+
+type SelectionTypes =
+  | 'short-text'
+  | 'long-text'
+  | 'radio'
+  | 'checkbox'
+  | 'dropdown';
 
 interface IFormCardActiveProps {
   form: IFormState;
@@ -23,7 +39,7 @@ interface IFormCardActiveProps {
 interface IForms {
   key: string;
   text: string;
-  value: string;
+  value: SelectionTypes;
   img: JSX.Element;
 }
 
@@ -62,6 +78,23 @@ function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
   );
 }
 
+export function FormInput({ selection }: { selection: SelectionTypes }) {
+  switch (selection) {
+    case 'short-text':
+      return <ShortTextInput />;
+    case 'long-text':
+      return <LongTextInput />;
+    case 'radio':
+      return <RadioInput />;
+    case 'checkbox':
+      return <CheckBoxInput />;
+    case 'dropdown':
+      return <DropDownInput />;
+    default:
+      return <ShortTextInput />;
+  }
+}
+
 function FormOptions({
   isRequired,
   onDuplicate,
@@ -92,7 +125,7 @@ export function FormCardActive({
   onRemove,
   onRequired,
 }: IFormCardActiveProps) {
-  const [selection, setSelection] = useState<string>('radio');
+  const [selection, setSelection] = useState<SelectionTypes>('radio');
 
   const forms: Array<IForms> = [
     {
@@ -129,7 +162,7 @@ export function FormCardActive({
 
   const onChange = (e: SelectChangeEvent<unknown>) => {
     const { value } = e.target;
-    setSelection(value as string);
+    setSelection(value as SelectionTypes);
   };
 
   if (form.isRequired === undefined) return null;
@@ -142,6 +175,7 @@ export function FormCardActive({
           <S.DragIndicator />
         </S.CardContentHeader>
         <FormInfo selection={selection} forms={forms} onChange={onChange} />
+        <FormInput selection={selection} />
         <FormOptions
           isRequired={form.isRequired}
           onDuplicate={onDuplicate}

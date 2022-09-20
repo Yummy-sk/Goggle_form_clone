@@ -4,5 +4,5 @@ export const RadioInputContainer = styled.div`
   width: 100%;
   height: fit-content;
 
-  background-color: red;
+  padding-top: 16px;
 `;
