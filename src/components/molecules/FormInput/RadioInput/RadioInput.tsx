@@ -20,6 +20,10 @@ interface IRadioSelectionProps {
   onClick: () => void;
 }
 
+interface IRadioAdderProps {
+  onAdd: () => void;
+}
+
 function RadioSelection({
   option,
   optionLength,
@@ -33,7 +37,7 @@ function RadioSelection({
   return (
     <S.RadioSelectionContainer
       onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}>
+      onMouseOut={onMouseLeave}>
       <S.RadioIcon />
       <S.RadioTextInput
         id='standard-basic'
@@ -55,6 +59,19 @@ function RadioSelection({
     </S.RadioSelectionContainer>
   );
 }
+
+function RadioAdder({ onAdd }: IRadioAdderProps) {
+  return (
+    <S.RadioAdderContainer>
+      <S.RadioIcon />
+      <S.RadioAdderButton onClick={onAdd}>옵션 추가</S.RadioAdderButton>
+      <span>또는</span>
+      <S.RadioEtcAddButton>&lsquo;기타&lsquo; 추가</S.RadioEtcAddButton>
+    </S.RadioAdderContainer>
+  );
+}
+
+function RadioEtcOption() {}
 
 export function RadioInput() {
   const [options, setOptions] = useState([
@@ -101,6 +118,19 @@ export function RadioInput() {
     );
   };
 
+  const onAdd = () => {
+    setOptions([
+      ...options.map(option => ({ ...option, isFocused: false })),
+      {
+        idx: options.length + 1,
+        key: nanoid(),
+        value: `옵션 ${options.length + 1}`,
+        isMouseOver: false,
+        isFocused: false,
+      },
+    ]);
+  };
+
   return (
     <S.RadioInputContainer>
       {options.map(option => (
@@ -114,6 +144,7 @@ export function RadioInput() {
           onClick={() => onClick({ key: option.key })}
         />
       ))}
+      <RadioAdder onAdd={onAdd} />
     </S.RadioInputContainer>
   );
 }
