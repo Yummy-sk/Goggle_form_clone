@@ -18,10 +18,13 @@ interface IRadioSelectionProps {
   onMouseOver: () => void;
   onBlur: () => void;
   onClick: () => void;
+  onDelete: () => void;
 }
 
 interface IRadioAdderProps {
+  isEtcIncluded: boolean;
   onAdd: () => void;
+  onEtcAdd: () => void;
 }
 
 function RadioSelection({
@@ -31,6 +34,7 @@ function RadioSelection({
   onMouseOver,
   onBlur,
   onClick,
+  onDelete,
 }: IRadioSelectionProps) {
   const { value, isMouseOver, isFocused } = option;
 
@@ -52,7 +56,7 @@ function RadioSelection({
         </IconButton>
       )}
       {optionLength > 1 && (
-        <IconButton style={{ marginLeft: '4px' }}>
+        <IconButton style={{ marginLeft: '4px' }} onClick={onDelete}>
           <CloseIcon />
         </IconButton>
       )}
@@ -60,23 +64,29 @@ function RadioSelection({
   );
 }
 
-function RadioAdder({ onAdd }: IRadioAdderProps) {
+function RadioAdder({ isEtcIncluded, onAdd, onEtcAdd }: IRadioAdderProps) {
   return (
     <S.RadioAdderContainer>
       <S.RadioIcon />
       <S.RadioAdderButton onClick={onAdd}>옵션 추가</S.RadioAdderButton>
-      <span>또는</span>
-      <S.RadioEtcAddButton>&lsquo;기타&lsquo; 추가</S.RadioEtcAddButton>
+      {!isEtcIncluded && (
+        <>
+          <span>또는</span>
+          <S.RadioEtcAddButton onClick={onEtcAdd}>
+            &lsquo;기타&lsquo; 추가
+          </S.RadioEtcAddButton>
+        </>
+      )}
     </S.RadioAdderContainer>
   );
 }
 
-function RadioEtcOption() {
+function RadioEtcOption({ onEtcAdd }: { onEtcAdd: () => void }) {
   return (
     <S.RadioEtcOptionContainer>
       <S.RadioIcon />
       <S.RadioEtcInput id='standard-basic' variant='standard' value='기타...' />
-      <IconButton style={{ marginLeft: '4px' }}>
+      <IconButton style={{ marginLeft: '4px' }} onClick={onEtcAdd}>
         <CloseIcon />
       </IconButton>
     </S.RadioEtcOptionContainer>
@@ -93,6 +103,7 @@ export function RadioInput() {
       isFocused: false,
     },
   ]);
+  const [isEtcIncluded, setIsEtcIncluded] = useState<boolean>(false);
 
   const onMouseOver = ({ key }: { key: string }) => {
     setOptions(
@@ -128,6 +139,16 @@ export function RadioInput() {
     );
   };
 
+  const onDelete = ({ key }: { key: string }) => {
+    if (options.length > 1) {
+      const newOptions = options.filter(
+        (option, idx) => option.key !== key && { ...option, idx: idx + 1 },
+      );
+
+      setOptions(newOptions);
+    }
+  };
+
   const onAdd = () => {
     setOptions([
       ...options.map(option => ({ ...option, isFocused: false })),
@@ -141,6 +162,8 @@ export function RadioInput() {
     ]);
   };
 
+  const onEtcAdd = () => setIsEtcIncluded((prev: boolean) => !prev);
+
   return (
     <S.RadioInputContainer>
       {options.map(option => (
@@ -152,10 +175,15 @@ export function RadioInput() {
           onMouseOver={() => onMouseOver({ key: option.key })}
           onBlur={() => onBlur({ key: option.key })}
           onClick={() => onClick({ key: option.key })}
+          onDelete={() => onDelete({ key: option.key })}
         />
       ))}
-      <RadioEtcOption />
-      <RadioAdder onAdd={onAdd} />
+      {isEtcIncluded && <RadioEtcOption onEtcAdd={onEtcAdd} />}
+      <RadioAdder
+        onAdd={onAdd}
+        isEtcIncluded={isEtcIncluded}
+        onEtcAdd={onEtcAdd}
+      />
     </S.RadioInputContainer>
   );
 }
