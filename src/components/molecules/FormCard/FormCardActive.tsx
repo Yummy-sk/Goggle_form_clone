@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
-import { IconButton, Select } from 'components';
+import { IconButton, Select, Switch } from 'components';
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import ShortTextIcon from '@mui/icons-material/ShortText';
 import LongTextIcon from '@mui/icons-material/Notes';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
-import { SelectChangeEvent } from '@mui/material';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { SelectChangeEvent, Divider, Typography } from '@mui/material';
 import * as S from './FormCardActive.style';
 
 interface IForms {
@@ -17,8 +19,68 @@ interface IForms {
   img: JSX.Element;
 }
 
+interface IFormInfoProps {
+  selection: string;
+  forms: Array<IForms>;
+  onChange: (e: SelectChangeEvent<unknown>) => void;
+}
+
+interface IFormOptionProps {
+  isRequired: boolean;
+  onDuplicate: () => void;
+  onDelete: () => void;
+  onRequired: () => void;
+}
+
+function FormInfo({ selection, forms, onChange }: IFormInfoProps) {
+  return (
+    <S.CardContentInfo>
+      <S.CardContentTitle
+        id='filled-basic'
+        placeholder='질문'
+        variant='filled'
+      />
+      <IconButton>
+        <ImageIcon />
+      </IconButton>
+      <Select value={selection} onChange={onChange}>
+        {forms.map(form => (
+          <S.CardSelectItem key={form.key} value={form.value}>
+            {form.img} {form.text}
+          </S.CardSelectItem>
+        ))}
+      </Select>
+    </S.CardContentInfo>
+  );
+}
+
+function FormOptions({
+  isRequired,
+  onDuplicate,
+  onDelete,
+  onRequired,
+}: IFormOptionProps) {
+  return (
+    <S.CardContentOptions>
+      <Divider />
+      <S.CardContentOptionsWrapper>
+        <IconButton onClick={onDuplicate}>
+          <ContentCopyRoundedIcon style={{ width: '30px', height: '30px' }} />
+        </IconButton>
+        <IconButton onClick={onDelete}>
+          <DeleteOutlineIcon style={{ width: '30px', height: '30px' }} />
+        </IconButton>
+        <Divider orientation='vertical' flexItem />
+        <Typography>필수</Typography>
+        <Switch checked={isRequired} onChange={onRequired} />
+      </S.CardContentOptionsWrapper>
+    </S.CardContentOptions>
+  );
+}
+
 export function FormCardActive() {
   const [selection, setSelection] = useState<string>('radio');
+  const [isRequired, setIsRequired] = useState<boolean>(false);
 
   const forms: Array<IForms> = [
     {
@@ -58,6 +120,10 @@ export function FormCardActive() {
     setSelection(value as string);
   };
 
+  const onDuplicate = () => {};
+  const onDelete = () => {};
+  const onRequired = () => setIsRequired(prev => !prev);
+
   return (
     <S.CardContainer>
       <S.CardActivator />
@@ -65,23 +131,13 @@ export function FormCardActive() {
         <S.CardContentHeader>
           <S.DragIndicator />
         </S.CardContentHeader>
-        <S.CardContentInfo>
-          <S.CardContentTitle
-            id='filled-basic'
-            placeholder='질문'
-            variant='filled'
-          />
-          <IconButton>
-            <ImageIcon />
-          </IconButton>
-          <Select value={selection} onChange={onChange}>
-            {forms.map(form => (
-              <S.CardSelectItem key={form.key} value={form.value}>
-                {form.img} {form.text}
-              </S.CardSelectItem>
-            ))}
-          </Select>
-        </S.CardContentInfo>
+        <FormInfo selection={selection} forms={forms} onChange={onChange} />
+        <FormOptions
+          isRequired={isRequired}
+          onDuplicate={onDuplicate}
+          onDelete={onDelete}
+          onRequired={onRequired}
+        />
       </S.CardContentWrapper>
     </S.CardContainer>
   );

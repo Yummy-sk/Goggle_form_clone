@@ -1,4 +1,4 @@
-import { CardContent, TextField, MenuItem } from '@mui/material';
+import { CardContent, TextField, MenuItem, Typography } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import styled from '@emotion/styled';
 
@@ -74,4 +74,35 @@ export const CardSelectItem = styled(MenuItem)`
     margin-right: 16px;
     color: #444;
   }
+`;
+
+export const CardContentOptions = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  margin-top: 32px;
+`;
+
+export const CardContentOptionsWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  padding-top: 8px;
+
+  & > *:not(:last-child) {
+    margin-right: 16px;
+  }
+`;
+
+export const CardContentOptionText = styled(Typography)`
+  color: #202124;
+  cursor: default;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 20px;
 `;
