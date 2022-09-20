@@ -10,6 +10,13 @@ export { FloatingButton } from 'components/atoms/FloatingButton';
 export { TitleCard } from 'components/molecules/TitleCard';
 export { FormCard } from 'components/molecules/FormCard';
 export { FormAddButton } from 'components/molecules/FormAddButton';
+export {
+  RadioInput,
+  DropDownInput,
+  LongTextInput,
+  CheckBoxInput,
+  ShortTextInput,
+} from 'components/molecules/FormInput';
 
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
