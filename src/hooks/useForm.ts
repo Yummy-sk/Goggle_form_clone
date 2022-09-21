@@ -33,7 +33,20 @@ export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
     console.log(values);
     if (validateState({ values })) {
       onSubmit({ values });
+      return;
     }
+
+    const nextValues = values.map(value => {
+      if (value.isRequired) {
+        return {
+          ...value,
+          error: true,
+        };
+      }
+      return value;
+    });
+
+    setValues(nextValues);
   };
 
   const removeAll = useCallback(() => {
