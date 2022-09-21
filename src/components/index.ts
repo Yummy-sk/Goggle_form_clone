@@ -17,6 +17,12 @@ export {
   CheckBoxInput,
   TextInput,
 } from 'components/molecules/FormInput';
+export {
+  CheckBoxViewer,
+  DropDownViewer,
+  RadioViewer,
+  TextViewer,
+} from 'components/molecules/FormViewer';
 
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
