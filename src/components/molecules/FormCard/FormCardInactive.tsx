@@ -1,14 +1,18 @@
 import { IFormState } from 'types/form';
+import * as S from './FormCardInactive.style';
 
 interface IFormCardInactiveProps {
   form: IFormState;
 }
 
 export function FormCardInactive({ form }: IFormCardInactiveProps) {
-  console.log(form);
+  const { title } = form;
   return (
-    <div>
-      <h1>FormCardInactive</h1>
-    </div>
+    <S.CardContainer style={{ padding: '28px 24px' }}>
+      <S.CardTitle>{title || '질문'}</S.CardTitle>
+      <S.CardContentWrapper>
+        <div>ds</div>
+      </S.CardContentWrapper>
+    </S.CardContainer>
   );
 }
