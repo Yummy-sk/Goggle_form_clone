@@ -1,5 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { makeStyles } from '@mui/styles';
 import * as S from './TitleCard.style';
 
+const useStyles = makeStyles({
+  isActivated: ({ type }: { type: 'title' | 'description' }) => {
+    return {
+      '& .MuiInput-root::before': {
+        borderBottom:
+          type === 'title' ? '1.5px solid #dadce0' : '1px solid #dadce0',
+      },
+    };
+  },
+});
 interface ITitleCardProps {
   title: string;
   description: string;
@@ -21,6 +33,8 @@ export function TitleCard({
   onUpdateFormTitle,
   onActivate,
 }: ITitleCardProps) {
+  const titleClass = useStyles({ type: 'title' });
+  const descriptionClass = useStyles({ type: 'description' });
   return (
     <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
       <S.CardTop />
@@ -28,19 +42,18 @@ export function TitleCard({
         <S.CardActivator isActivated={isActivated} />
         <S.CardContentWrapper>
           <S.CardTitle
-            id='standard-basic'
+            className={isActivated ? titleClass.isActivated : ''}
             variant='standard'
             name='title'
             value={title}
-            isActivated={isActivated}
             onChange={e => onUpdateFormTitle({ e, type: 'title' })}
           />
+
           <S.CardDescription
-            id='standard-basic'
+            className={isActivated ? descriptionClass.isActivated : ''}
             variant='standard'
             name='description'
             value={description}
-            isActivated={isActivated}
             placeholder='설문지 설명'
             onChange={e => onUpdateFormTitle({ e, type: 'description' })}
           />

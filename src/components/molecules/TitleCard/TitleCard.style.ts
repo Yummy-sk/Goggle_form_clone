@@ -37,13 +37,12 @@ export const CardContentWrapper = styled(CardContent)`
   flex-direction: column;
 `;
 
-export const CardTitle = styled(TextField)<{ isActivated: boolean }>`
+export const CardTitle = styled(TextField)`
   width: 100%;
 
   margin-bottom: 8px;
   & .MuiInput-root::before {
-    border-bottom: ${({ isActivated }) =>
-      isActivated ? '2px solid #dadce0' : 'transparent'};
+    border-bottom: 'transparent';
   }
   & .MuiInput-root::after {
     border-bottom: 2px solid #4c2b87;
@@ -53,12 +52,11 @@ export const CardTitle = styled(TextField)<{ isActivated: boolean }>`
   }
 `;
 
-export const CardDescription = styled(TextField)<{ isActivated: boolean }>`
+export const CardDescription = styled(TextField)`
   width: 100%;
-  transition: border-bottom 0.3s ease-in-out;
+
   & .MuiInput-root::before {
-    border-bottom: ${({ isActivated }) =>
-      isActivated ? '1px solid #dadce0' : 'transparent'};
+    border-bottom: 'transparent';
   }
   & .MuiInput-root::after {
     border-bottom: 1px solid #4c2b87;
