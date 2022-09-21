@@ -1,3 +1,4 @@
+import { TextInput } from 'components';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
@@ -6,3 +7,5 @@ export const Container = styled.div`
 
   margin-top: 16px;
 `;
+
+export const TextInputViewer = styled(TextInput)``;

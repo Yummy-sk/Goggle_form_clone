@@ -8,12 +8,13 @@ export const TextInputContainer = styled.div`
   padding-top: 16px;
 `;
 
-export const TextInputField = styled(TextField)<{ type: 'long' | 'short' }>`
+export const TextInputField = styled(TextField)<{
+  type: 'long-text' | 'short-text';
+}>`
   pointer-events: none;
   cursor: pointer;
-  margin-left: 8px;
 
-  width: ${({ type }) => (type === 'long' ? '80%' : '50%')};
+  width: ${({ type }) => (type === 'long-text' ? '80%' : '50%')};
   & .MuiInput-root {
     color: #9e9e9e;
   }
