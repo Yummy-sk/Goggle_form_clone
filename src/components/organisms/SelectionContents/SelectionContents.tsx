@@ -60,6 +60,7 @@ export function SelectionContents({
 
       {values.map(form => (
         <SelectionCard
+          key={form.key}
           isInit={isInit}
           setIsInit={setIsInit}
           form={form}
