@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { IFormState, ITypes } from 'types/form';
+import { Grow } from '@mui/material';
 import { FormCardActive } from './FormCardActive';
 import { FormCardInactive } from './FormCardInactive';
 import * as S from './FormCard.style';
@@ -29,20 +30,22 @@ function FormCard({
   onChangeFormType,
 }: IFormCardProps) {
   return (
-    <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
-      {form.isActivated ? (
-        <FormCardActive
-          form={form}
-          onChangeTitle={onChangeTitle}
-          onRemove={onRemove}
-          onDuplicate={onDuplicate}
-          onRequired={onRequired}
-          onChangeFormType={onChangeFormType}
-        />
-      ) : (
-        <FormCardInactive form={form} />
-      )}
-    </S.CardContainer>
+    <Grow in>
+      <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
+        {form.isActivated ? (
+          <FormCardActive
+            form={form}
+            onChangeTitle={onChangeTitle}
+            onRemove={onRemove}
+            onDuplicate={onDuplicate}
+            onRequired={onRequired}
+            onChangeFormType={onChangeFormType}
+          />
+        ) : (
+          <FormCardInactive form={form} />
+        )}
+      </S.CardContainer>
+    </Grow>
   );
 }
 

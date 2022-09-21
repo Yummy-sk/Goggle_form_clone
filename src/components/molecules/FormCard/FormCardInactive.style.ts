@@ -8,8 +8,6 @@ export const CardContainer = styled(CardContent)`
   display: flex;
   flex-direction: column;
 
-  transition: height 0.3s ease-in-out;
-
   pointer-events: none;
 `;
 

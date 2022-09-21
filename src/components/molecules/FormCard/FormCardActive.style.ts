@@ -7,15 +7,11 @@ export const CardContainer = styled.div`
   height: fit-content;
 
   display: flex;
-
-  transition: height 0.3s ease-in-out;
 `;
 
 export const CardActivator = styled.div`
   max-width: 8px;
   flex: 1;
-
-  transition: background-color 0.3s ease-in-out;
 
   background-color: #4284f3;
 `;
