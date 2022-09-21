@@ -1,7 +1,7 @@
 import * as S from './TextInput.style';
 
 interface ITextInputProps {
-  type: 'long' | 'short';
+  type: 'short-text' | 'long-text';
 }
 
 export function TextInput({ type }: ITextInputProps) {
@@ -10,7 +10,7 @@ export function TextInput({ type }: ITextInputProps) {
       <S.TextInputField
         id='standard-basic'
         variant='standard'
-        value={type === 'long' ? '장문형 텍스트' : '단문형 텍스트'}
+        value={type === 'long-text' ? '장문형 텍스트' : '단문형 텍스트'}
         readOnly
         type={type}
       />

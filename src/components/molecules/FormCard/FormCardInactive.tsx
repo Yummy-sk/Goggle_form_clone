@@ -17,7 +17,7 @@ function FormCardInactiveContent({ form }: IFormCardInactiveProps) {
   switch (type) {
     case 'short-text':
     case 'long-text':
-      return <TextViewer />;
+      return <TextViewer form={form} type={type} isEditable={false} />;
     case 'radio':
       return <RadioViewer form={form} />;
     case 'checkbox':
