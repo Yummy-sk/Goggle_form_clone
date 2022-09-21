@@ -126,9 +126,11 @@ function RadioAndCheckBoxEtcOption({
         variant='standard'
         value='기타...'
       />
-      <IconButton style={{ marginLeft: '4px' }} onClick={onEtcAdd}>
-        <CloseIcon />
-      </IconButton>
+      <S.IconEtcWrapper>
+        <IconButton style={{ marginLeft: '4px' }} onClick={onEtcAdd}>
+          <CloseIcon />
+        </IconButton>
+      </S.IconEtcWrapper>
     </S.RadioAndCheckBoxEtcOptionContainer>
   );
 }
