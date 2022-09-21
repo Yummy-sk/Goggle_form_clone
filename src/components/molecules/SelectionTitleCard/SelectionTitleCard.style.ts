@@ -57,7 +57,7 @@ export const CardBottomInfo = styled.div`
   justify-content: space-between;
 `;
 
-export const EmailText = styled(Typography)`
+export const EmailText = styled.span`
   display: flex;
   align-items: center;
 
