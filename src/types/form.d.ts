@@ -20,3 +20,18 @@ export interface IFormState {
 export interface IState {
   items: Array<IFormState>;
 }
+
+export interface ISelection {
+  key: string;
+  title: string;
+  type: ITypes;
+  isRequired: boolean;
+  value: string | Array<string>;
+  options: string | Array<string>;
+  error: boolean;
+}
+
+export interface IStateChangeProps {
+  key: string;
+  nextValue: string | Array<string>;
+}

@@ -1,52 +1,47 @@
 import { useState, useCallback } from 'react';
+import { ISelection, IStateChangeProps } from 'types/form';
 
-interface IUseForm<T, L> {
-  initialValues: T;
-  errorInitialValues: L;
-  onSubmit: (values: T) => void;
-  validate: (values: T) => L;
+interface IUseForm {
+  initialValues: Array<ISelection>;
+  onSubmit: ({ values }: { values: Array<ISelection> }) => void;
+  validateState: ({ values }: { values: Array<ISelection> }) => boolean;
 }
 
-function useForm<T, L extends object>({
-  initialValues,
-  errorInitialValues,
-  onSubmit,
-  validate,
-}: IUseForm<T, L>) {
-  const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<L>(errorInitialValues);
+export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
+  const [values, setValues] = useState<Array<ISelection>>(initialValues);
 
-  const handleChange = <K, V>({ type, value }: { type: K; value: V }) => {
-    setValues({
-      ...values,
-      [type as string]: value,
-    });
-  };
+  const handleChange = useCallback(
+    ({ key, nextValue }: IStateChangeProps) => {
+      const nextValues = values.map(value => {
+        if (value.key === key) {
+          return {
+            ...value,
+            value: nextValue,
+            error: false,
+          };
+        }
+        return value;
+      });
 
-  const handleSubmit = () => {
-    const newErrors = validate ? validate(values) : errorInitialValues;
-    if (typeof newErrors !== 'object') return;
-
-    if (Object.keys(newErrors).every(key => !newErrors[key as keyof L])) {
-      onSubmit(values);
-    }
-    setErrors(newErrors);
-  };
-
-  const removeAll = useCallback(
-    (name: string) => {
-      setValues({ ...values, [name]: '' });
+      setValues(nextValues);
     },
     [values],
   );
 
+  const handleSubmit = () => {
+    if (validateState({ values })) {
+      onSubmit({ values });
+    }
+  };
+
+  const removeAll = useCallback(() => {
+    setValues(initialValues);
+  }, [initialValues]);
+
   return {
     values,
-    errors,
     handleChange,
     handleSubmit,
     removeAll,
   };
 }
-
-export default useForm;

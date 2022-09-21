@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { SelectionTitleCard, SelectionCard } from 'components';
+import { useForm } from 'hooks';
 import { IFormState } from 'types/form';
+import { getInitialState, validateState, onSubmit } from './helper';
 import * as S from './SelectionContents.style';
 
 interface ISelectionContentsProps {
@@ -13,6 +15,12 @@ export function SelectionContents({
   formState,
 }: ISelectionContentsProps) {
   const navigate = useNavigate();
+  const initialValues = getInitialState({ formState });
+  const { values, handleChange, handleSubmit, removeAll } = useForm({
+    initialValues,
+    onSubmit,
+    validateState,
+  });
 
   if (!titleState || !formState) {
     navigate('/');
@@ -20,7 +28,7 @@ export function SelectionContents({
   }
 
   const checkIsIncludeRequiredForm = () =>
-    formState.some(form => form.isRequired);
+    values.some(value => value.isRequired);
 
   const { title, description } = titleState;
 
