@@ -2,19 +2,19 @@ import { IconButton, Required } from 'components';
 import { Divider } from '@mui/material';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloudDoneOutlinedIcon from '@mui/icons-material/CloudDoneOutlined';
-import * as S from './ResultTitleCard.style';
+import * as S from './SelectionTitleCard.style';
 
-interface IResultTitleCardProps {
+interface ISelectionTitleCardProps {
   title: string;
   description: string;
   isIncludeRequiredForm: boolean;
 }
 
-export function ResultTitleCard({
+export function SelectionTitleCard({
   title,
   description,
   isIncludeRequiredForm,
-}: IResultTitleCardProps) {
+}: ISelectionTitleCardProps) {
   return (
     <S.CardContainer style={{ maxWidth: '600px' }}>
       <S.CardTop />
