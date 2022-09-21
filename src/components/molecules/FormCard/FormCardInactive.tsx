@@ -3,6 +3,7 @@ import {
   DropDownViewer,
   RadioViewer,
   TextViewer,
+  Required,
 } from 'components';
 import { IFormState } from 'types/form';
 import * as S from './FormCardInactive.style';
@@ -30,10 +31,13 @@ function FormCardInactiveContent({ form }: IFormCardInactiveProps) {
 }
 
 export function FormCardInactive({ form }: IFormCardInactiveProps) {
-  const { title } = form;
+  const { title, isRequired } = form;
+
   return (
     <S.CardContainer style={{ padding: '28px 24px' }}>
-      <S.CardTitle>{title || '질문'}</S.CardTitle>
+      <S.CardTitle>
+        {title || '질문'} {isRequired && <Required />}
+      </S.CardTitle>
       <FormCardInactiveContent form={form} />
     </S.CardContainer>
   );

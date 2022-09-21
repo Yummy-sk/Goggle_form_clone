@@ -15,6 +15,8 @@ export const CardContainer = styled(CardContent)`
 
 export const CardTitle = styled(Typography)`
   font-size: 18px;
+
+  display: flex;
 `;
 
 export const CardContentWrapper = styled.div`
