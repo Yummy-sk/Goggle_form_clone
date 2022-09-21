@@ -21,7 +21,7 @@ function FormCardInactiveContent({ form }: IFormCardInactiveProps) {
     case 'radio':
       return <RadioViewer form={form} />;
     case 'checkbox':
-      return <CheckBoxViewer />;
+      return <CheckBoxViewer form={form} />;
     case 'dropdown':
       return <DropDownViewer />;
     default:

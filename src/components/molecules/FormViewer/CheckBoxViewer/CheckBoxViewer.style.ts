@@ -1,3 +1,4 @@
+import { Checkbox } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
@@ -5,4 +6,10 @@ export const Container = styled.div`
   height: fit-content;
 
   margin-top: 16px;
+`;
+
+export const FormCheckBox = styled(Checkbox)`
+  &.MuiButtonBase-root {
+    color: #bdbdbd;
+  }
 `;
