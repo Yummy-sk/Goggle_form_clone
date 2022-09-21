@@ -1,12 +1,15 @@
-import { CardContent } from '@mui/material';
+import { CardContent, Typography } from '@mui/material';
 import { Card } from 'components';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import styled from '@emotion/styled';
 
-export const CardContainer = styled(Card)`
+export const CardContainer = styled(Card)<{ error: boolean }>`
   width: 100%;
   height: 100%;
 
   margin-top: 12px;
+
+  ${({ error }) => error && `border: 1px solid #d93025;`}
 `;
 
 export const CardWrapper = styled(CardContent)`
@@ -33,4 +36,23 @@ export const CardHeader = styled.div`
 
 export const CardContents = styled.div`
   width: 100%;
+`;
+
+export const CardVaildator = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+`;
+
+export const WarningIcon = styled(ErrorOutlineOutlinedIcon)`
+  color: #d93025;
+`;
+
+export const WarningText = styled(Typography)`
+  margin-left: 8px;
+
+  color: #d93025;
+
+  font-size: 14px;
+  font-weight: 400;
 `;

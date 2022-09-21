@@ -49,10 +49,10 @@ function SelectionContent({ form, handleChange }: ISelectionCardProps) {
 }
 
 export function SelectionCard({ form, handleChange }: ISelectionCardProps) {
-  const { title, isRequired } = form;
+  const { title, isRequired, error } = form;
 
   return (
-    <S.CardContainer style={{ maxWidth: '600px' }}>
+    <S.CardContainer style={{ maxWidth: '600px' }} error={error}>
       <S.CardWrapper>
         <S.CardHeader>
           {title}
@@ -60,6 +60,12 @@ export function SelectionCard({ form, handleChange }: ISelectionCardProps) {
         </S.CardHeader>
         <SelectionContent form={form} handleChange={handleChange} />
         <S.CardContents />
+        {error && (
+          <S.CardVaildator>
+            <S.WarningIcon />
+            <S.WarningText>필수 질문입니다.</S.WarningText>
+          </S.CardVaildator>
+        )}
       </S.CardWrapper>
     </S.CardContainer>
   );
