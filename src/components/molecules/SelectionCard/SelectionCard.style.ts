@@ -3,7 +3,7 @@ import { Card } from 'components';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import styled from '@emotion/styled';
 
-export const CardContainer = styled(Card)<{ error: boolean }>`
+export const CardContainer = styled(Card)<{ error: number }>`
   width: 100%;
   height: 100%;
 

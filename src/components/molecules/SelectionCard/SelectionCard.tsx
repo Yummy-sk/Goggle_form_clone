@@ -77,10 +77,8 @@ export function SelectionCard({
 }: ISelectionCardProps) {
   const { title, isRequired, error } = form;
 
-  console.log(error);
-
   return (
-    <S.CardContainer style={{ maxWidth: '600px' }} error={error && error}>
+    <S.CardContainer style={{ maxWidth: '600px' }} error={error ? 1 : 0}>
       <S.CardWrapper>
         <S.CardHeader>
           {title}
