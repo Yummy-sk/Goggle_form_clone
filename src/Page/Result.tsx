@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'hooks';
@@ -28,8 +28,13 @@ export function Result() {
     [items],
   );
 
-  if (!items || items.length <= 1 || !titleState) {
-    navigate('/');
+  useEffect(() => {
+    if (!items || items.length <= 1 || !titleState) {
+      navigate('/');
+    }
+  }, [items, titleState, navigate]);
+
+  if (!titleState || !formState) {
     return null;
   }
 

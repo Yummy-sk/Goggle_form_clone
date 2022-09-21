@@ -19,9 +19,18 @@ export function ResultContents({
     return null;
   }
 
+  const checkIsIncludeRequiredForm = () =>
+    formState.some(form => form.isRequired);
+
+  const { title, description } = titleState;
+
   return (
     <S.ResultContentsContainer>
-      <ResultTitleCard />
+      <ResultTitleCard
+        title={title}
+        description={description || ''}
+        isIncludeRequiredForm={checkIsIncludeRequiredForm()}
+      />
       <div>ds</div>
     </S.ResultContentsContainer>
   );
