@@ -44,14 +44,17 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
   );
 
   const onRemove = useCallback(
-    ({ formKey }: { formKey: string }) => {
-      dispatch(
-        removeForm({
-          key: formKey,
-          state: items,
-        }),
-      );
-    },
+    ({ formKey }: { formKey: string }) =>
+      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation();
+
+        dispatch(
+          removeForm({
+            key: formKey,
+            state: items,
+          }),
+        );
+      },
     [dispatch, items],
   );
 
@@ -119,7 +122,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
           key={form.key}
           form={form}
           onActivate={() => onActivate({ formKey: form.key })}
-          onRemove={() => onRemove({ formKey: form.key })}
+          onRemove={onRemove({ formKey: form.key })}
           onDuplicate={onDuplicate({ formKey: form.key })}
           onRequired={() => onRequired({ formKey: form.key })}
           onChangeTitle={onChangeTitle({ formKey: form.key })}

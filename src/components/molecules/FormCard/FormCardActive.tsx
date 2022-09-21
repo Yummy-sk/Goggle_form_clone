@@ -22,7 +22,7 @@ import * as S from './FormCardActive.style';
 
 interface IFormCardActiveProps {
   form: IFormState;
-  onRemove: () => void;
+  onRemove: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onDuplicate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onRequired: () => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -53,7 +53,7 @@ interface IFormInfoProps {
 interface IFormOptionProps {
   isRequired: boolean;
   onDuplicate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onRemove: () => void;
+  onRemove: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onRequired: () => void;
 }
 
