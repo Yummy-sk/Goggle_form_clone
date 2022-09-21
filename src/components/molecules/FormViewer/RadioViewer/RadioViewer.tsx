@@ -88,8 +88,8 @@ export function RadioViewer({
               value={sel.value}
               control={<Radio />}
               label={sel.value}
-              isEtc={sel.isEtc}
               checked={sel.checked}
+              style={sel.isEtc ? { color: '#70757a' } : {}}
             />
           ))}
         </RadioGroup>

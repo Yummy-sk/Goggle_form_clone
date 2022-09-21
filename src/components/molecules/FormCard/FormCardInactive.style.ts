@@ -1,4 +1,4 @@
-import { CardContent, Typography } from '@mui/material';
+import { CardContent } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const CardContainer = styled(CardContent)`
@@ -11,10 +11,13 @@ export const CardContainer = styled(CardContent)`
   pointer-events: none;
 `;
 
-export const CardTitle = styled(Typography)`
+export const CardTitle = styled.span`
   font-size: 18px;
 
   display: flex;
+  justify-content: flex-start;
+
+  text-align: top;
 `;
 
 export const CardContentWrapper = styled.div`

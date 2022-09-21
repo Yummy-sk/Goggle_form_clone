@@ -6,5 +6,9 @@ interface ILayoutProps {
 }
 
 export function Layout({ children, isMain }: ILayoutProps) {
-  return <S.LayoutContainer isMain={isMain}>{children}</S.LayoutContainer>;
+  return (
+    <S.LayoutContainer>
+      <S.LayoutWrapper isMain={isMain}>{children}</S.LayoutWrapper>
+    </S.LayoutContainer>
+  );
 }

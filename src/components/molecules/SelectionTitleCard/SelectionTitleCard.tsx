@@ -31,7 +31,7 @@ export function SelectionTitleCard({
               <VisibilityOffIcon />
             </IconButton>
             <S.EmailText>
-              hello0523@gmail.com <p>(공유되지 않음)</p>
+              hello0523@gmail.com <p> (공유되지 않음) </p>
             </S.EmailText>
           </span>
           <IconButton>

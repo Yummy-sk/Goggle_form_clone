@@ -4,6 +4,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
+import { nanoid } from '@reduxjs/toolkit';
 import { IFormState, ISelection, IStateChangeProps } from 'types/form';
 import * as S from './DropDownViewer.style';
 
@@ -39,7 +40,11 @@ function Selection({
           <em>선택</em>
         </MenuItem>
         {Array.isArray(options) &&
-          options.map(option => <MenuItem value={option}>{option}</MenuItem>)}
+          options.map(option => (
+            <MenuItem key={nanoid()} value={option}>
+              {option}
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );
@@ -53,7 +58,7 @@ function Viewer({ form }: { form: IFormState | ISelection }) {
   return (
     <S.ViewerContainer>
       {options.map((option, idx) => (
-        <S.ViewerContentWrapper>
+        <S.ViewerContentWrapper key={nanoid()}>
           <S.ViewerContent>{idx + 1}</S.ViewerContent>
           <S.ViewerContent>{option}</S.ViewerContent>
         </S.ViewerContentWrapper>
