@@ -14,9 +14,8 @@ export { FormAddButton } from 'components/molecules/FormAddButton';
 export {
   RadioAndCheckBoxInput,
   DropDownInput,
-  LongTextInput,
   CheckBoxInput,
-  ShortTextInput,
+  TextInput,
 } from 'components/molecules/FormInput';
 
 // organisms

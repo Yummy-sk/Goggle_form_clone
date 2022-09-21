@@ -1,1 +1,0 @@
-export { ShortTextInput } from './ShortTextInput';

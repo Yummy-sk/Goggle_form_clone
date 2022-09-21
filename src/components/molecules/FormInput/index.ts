@@ -1,5 +1,4 @@
 export { RadioAndCheckBoxInput } from './RadioAndCheckBoxInput';
 export { DropDownInput } from './DropDownInput';
-export { LongTextInput } from './LongTextInput';
+export { TextInput } from './TextInput';
 export { CheckBoxInput } from './CheckBoxInput';
-export { ShortTextInput } from './ShortTextInput';
