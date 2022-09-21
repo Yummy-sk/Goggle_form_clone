@@ -13,6 +13,7 @@ export { TitleCard } from 'components/molecules/TitleCard';
 export { SelectionTitleCard } from 'components/molecules/SelectionTitleCard';
 export { FormCard } from 'components/molecules/FormCard';
 export { SelectionCard } from 'components/molecules/SelectionCard';
+export { ResultTitleCard } from 'components/molecules/ResultTitleCard';
 export { FormAddButton } from 'components/molecules/FormAddButton';
 export {
   RadioAndCheckBoxInput,
@@ -31,6 +32,7 @@ export {
 export { Navigation } from 'components/organisms/Navigation';
 export { MainContents } from 'components/organisms/MainContents';
 export { SelectionContents } from 'components/organisms/SelectionContents';
+export { ResultContents } from 'components/organisms/ResultContents';
 
 // template
 export { Layout } from 'components/template/Layout';

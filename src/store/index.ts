@@ -11,3 +11,4 @@ export {
   setEtc,
   setFormType,
 } from 'store/formSlice';
+export { updateTitle, updateResult, initState } from 'store/resultSlice';

@@ -59,7 +59,3 @@ export function validateState({
     return true;
   });
 }
-
-export function onSubmit({ values }: { values: Array<ISelection> }) {
-  console.log(values);
-}
