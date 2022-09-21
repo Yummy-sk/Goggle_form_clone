@@ -1,5 +1,10 @@
 import styled from '@emotion/styled';
-import { CardContent, Typography } from '@mui/material';
+import {
+  Accordion,
+  CardContent,
+  Typography,
+  AccordionSummary,
+} from '@mui/material';
 import { Card } from 'components';
 
 export const CardContainer = styled(Card)`
@@ -37,7 +42,7 @@ export const CardDescription = styled(Typography)`
   margin-top: 14px;
 `;
 
-export const CardBottomWrapper = styled(CardContent)`
+export const ResultContentsWrapper = styled(CardContent)`
   height: 100%;
 
   display: flex;
@@ -46,4 +51,35 @@ export const CardBottomWrapper = styled(CardContent)`
   & span {
     display: flex;
   }
+`;
+
+export const ResultContentsInner = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const ResultAccordion = styled(Accordion)`
+  width: 100%;
+`;
+
+export const ResultAccordionSummary = styled(AccordionSummary)`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ResultTitle = styled(Typography)`
+  font-weight: bold;
+  font-size: 18px;
+
+  flex: 8;
+`;
+
+export const ResultType = styled(Typography)`
+  font-size: 14px;
+  flex: 2;
 `;
