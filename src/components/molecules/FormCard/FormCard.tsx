@@ -7,7 +7,7 @@ import * as S from './FormCard.style';
 interface IFormCardProps {
   form: IFormState;
   onActivate: () => void;
-  onRemove: () => void;
+  onRemove: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onDuplicate: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onRequired: () => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;

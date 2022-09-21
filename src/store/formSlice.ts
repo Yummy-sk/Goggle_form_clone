@@ -74,13 +74,20 @@ export const formSlice = createSlice({
         state.items = action.payload.nextState;
       },
       prepare: ({ key, state }: IRemoveFormProps): IAction<INextState> => {
-        const nextState = state
-          .filter(item => item.key !== key)
-          .map((item, idx) => ({
-            ...item,
-            idx: idx + 1,
-            isActivated: false,
-          }));
+        const nextState = state.filter(item => item.key !== key);
+        const curLength = nextState.length;
+
+        if (curLength >= 1) {
+          return {
+            payload: {
+              nextState: nextState.map((item, idx) => ({
+                ...item,
+                idx: idx + 1,
+                isActivated: idx + 1 === curLength,
+              })),
+            },
+          };
+        }
 
         return {
           payload: {
