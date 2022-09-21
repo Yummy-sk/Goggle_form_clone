@@ -10,6 +10,8 @@ export const LayoutContainer = styled(Container)<{ isMain: boolean }>`
   align-items: center;
   justify-content: center;
 
+  padding-bottom: 100px;
+
   ${({ isMain }) =>
     isMain &&
     `

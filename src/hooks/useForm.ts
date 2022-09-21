@@ -54,7 +54,10 @@ export function useForm({
     }
 
     const nextValues = values.map(value => {
-      if (value.isRequired) {
+      if (
+        value.isRequired &&
+        (value.value === '' || value.value.length === 0)
+      ) {
         return {
           ...value,
           error: true,
