@@ -19,7 +19,7 @@ function FormCardInactiveContent({ form }: IFormCardInactiveProps) {
     case 'long-text':
       return <TextViewer />;
     case 'radio':
-      return <RadioViewer />;
+      return <RadioViewer form={form} />;
     case 'checkbox':
       return <CheckBoxViewer />;
     case 'dropdown':

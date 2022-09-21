@@ -13,7 +13,9 @@ export const CardContainer = styled(CardContent)`
   pointer-events: none;
 `;
 
-export const CardTitle = styled(Typography)``;
+export const CardTitle = styled(Typography)`
+  font-size: 18px;
+`;
 
 export const CardContentWrapper = styled.div`
   width: 100%;
