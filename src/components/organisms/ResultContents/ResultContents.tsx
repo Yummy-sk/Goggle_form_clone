@@ -31,6 +31,7 @@ export function ResultContents({
         description={description || ''}
         isIncludeRequiredForm={checkIsIncludeRequiredForm()}
       />
+
       {formState.map(form => (
         <ResultCard form={form} />
       ))}
