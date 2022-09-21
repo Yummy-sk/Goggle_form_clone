@@ -7,6 +7,7 @@ import { getStringFromASCII } from './helper';
 import * as S from './ResultTitleCard.style';
 
 interface IResultTitleCardProps {
+  title: string;
   result: Array<IResultState>;
 }
 
@@ -33,7 +34,7 @@ function ReturnAnswer({ answer }: { answer: string | Array<string> }) {
   );
 }
 
-function ResultContents({ result }: IResultTitleCardProps) {
+function ResultContents({ result }: Omit<IResultTitleCardProps, 'title'>) {
   const [accordianState, setAccordianState] = useState<Array<IAccordionState>>(
     result.map(res => ({ ...res, isExpanded: false })),
   );
@@ -88,12 +89,12 @@ function ResultContents({ result }: IResultTitleCardProps) {
   );
 }
 
-export function ResultTitleCard({ result }: IResultTitleCardProps) {
+export function ResultTitleCard({ title, result }: IResultTitleCardProps) {
   return (
     <S.CardContainer style={{ maxWidth: '600px' }}>
       <S.CardTop />
       <S.CardContentWrapper>
-        <S.CardTitle>제목이다.</S.CardTitle>
+        <S.CardTitle>{title}</S.CardTitle>
         <S.CardDescription>응답이 기록되었습니다.</S.CardDescription>
       </S.CardContentWrapper>
       <Divider />

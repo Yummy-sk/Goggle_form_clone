@@ -33,7 +33,7 @@ export function Result() {
     <>
       <Helmet title={title} />
       <Layout isMain={false}>
-        <ResultContents result={result} />
+        <ResultContents title={title} result={result} />
       </Layout>
     </>
   );
