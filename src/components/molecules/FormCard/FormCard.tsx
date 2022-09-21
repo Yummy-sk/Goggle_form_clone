@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { IFormState, ITypes } from 'types/form';
 import { FormCardActive } from './FormCardActive';
 import { FormCardInactive } from './FormCardInactive';
@@ -18,8 +19,7 @@ interface IFormCardProps {
     form: IFormState;
   }) => void;
 }
-
-export function FormCard({
+function FormCard({
   form,
   onActivate,
   onRemove,
@@ -40,8 +40,12 @@ export function FormCard({
           onChangeFormType={onChangeFormType}
         />
       ) : (
-        <FormCardInactive />
+        <FormCardInactive form={form} />
       )}
     </S.CardContainer>
   );
 }
+
+const MemoizedFormCard = memo(FormCard);
+
+export { MemoizedFormCard as FormCard };
