@@ -15,8 +15,7 @@ import {
   Switch,
   RadioAndCheckBoxInput,
   DropDownInput,
-  LongTextInput,
-  ShortTextInput,
+  TextInput,
 } from 'components';
 import { IFormState, ITypes } from 'types/form';
 import * as S from './FormCardActive.style';
@@ -97,9 +96,9 @@ export function FormInput({
 }) {
   switch (selection) {
     case 'short-text':
-      return <ShortTextInput />;
+      return <TextInput />;
     case 'long-text':
-      return <LongTextInput />;
+      return <TextInput />;
     case 'radio':
       return <RadioAndCheckBoxInput type='radio' form={form} />;
     case 'checkbox':
@@ -107,7 +106,7 @@ export function FormInput({
     case 'dropdown':
       return <DropDownInput form={form} />;
     default:
-      return <ShortTextInput />;
+      return null;
   }
 }
 

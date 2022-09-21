@@ -1,6 +1,6 @@
-import * as S from './LongTextInput.style';
+import * as S from './TextInput.style';
 
-export function LongTextInput() {
+export function TextInput() {
   return (
     <S.LongTextInputContainer>
       <h1>LongTextInput</h1>
