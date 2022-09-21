@@ -6,6 +6,7 @@ export { Select } from 'components/atoms/Select';
 export { Switch } from 'components/atoms/Switch';
 export { FloatingButton } from 'components/atoms/FloatingButton';
 export { Button } from 'components/atoms/Button';
+export { Required } from 'components/atoms/Required';
 
 // molecules
 export { TitleCard } from 'components/molecules/TitleCard';
