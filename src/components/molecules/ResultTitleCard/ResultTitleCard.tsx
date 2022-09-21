@@ -98,6 +98,7 @@ export function ResultTitleCard({ result }: IResultTitleCardProps) {
       </S.CardContentWrapper>
       <Divider />
       <S.ResultContentsWrapper>
+        <S.ResultTitleIndicator>제출 항목</S.ResultTitleIndicator>
         <ResultContents result={result} />
       </S.ResultContentsWrapper>
     </S.CardContainer>

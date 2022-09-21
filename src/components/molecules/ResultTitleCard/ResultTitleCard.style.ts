@@ -72,6 +72,15 @@ export const ResultAccordionSummary = styled(AccordionSummary)`
   justify-content: space-between;
 `;
 
+export const ResultTitleIndicator = styled(Typography)`
+  font-size: 18pt;
+
+  box-sizing: border-box;
+  color: #202124;
+
+  margin-bottom: 12px;
+`;
+
 export const ResultTitle = styled(Typography)`
   font-weight: bold;
   font-size: 18px;
