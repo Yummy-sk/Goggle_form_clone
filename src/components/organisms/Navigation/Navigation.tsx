@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
 import { updateTitleForm } from 'store';
 import { useAppDispatch } from 'hooks';
 import view from 'assets/img/view.png';
@@ -30,9 +31,9 @@ export function Navigation({ title }: { title: string }) {
           />
         </S.LeftContentWrapper>
         <S.ResultIcon>
-          <a href={`/result/${nanoid()}`} target='_blank' rel='noreferrer'>
+          <Link to={`/result/${nanoid()}`} rel='noreferrer'>
             <img src={view} alt='show result icon' />
-          </a>
+          </Link>
         </S.ResultIcon>
       </S.NavContainer>
     </S.NavBar>
