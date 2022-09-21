@@ -10,6 +10,7 @@ export { Required } from 'components/atoms/Required';
 
 // molecules
 export { TitleCard } from 'components/molecules/TitleCard';
+export { ResultTitleCard } from 'components/molecules/ResultTitleCard';
 export { FormCard } from 'components/molecules/FormCard';
 export { FormAddButton } from 'components/molecules/FormAddButton';
 export {
@@ -28,6 +29,7 @@ export {
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
 export { MainContents } from 'components/organisms/MainContents';
+export { ResultContents } from 'components/organisms/ResultContents';
 
 // template
 export { Layout } from 'components/template/Layout';
