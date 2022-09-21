@@ -105,7 +105,7 @@ export function FormInput({
     case 'checkbox':
       return <RadioAndCheckBoxInput type='checkbox' form={form} />;
     case 'dropdown':
-      return <DropDownInput />;
+      return <DropDownInput form={form} />;
     default:
       return <ShortTextInput />;
   }
