@@ -9,11 +9,18 @@ import { ISelection, IStateChangeProps } from 'types/form';
 import * as S from './SelectionCard.style';
 
 interface ISelectionCardProps {
+  isInit: boolean;
+  setIsInit: React.Dispatch<React.SetStateAction<boolean>>;
   form: ISelection;
   handleChange: ({ nextValue }: IStateChangeProps) => void;
 }
 
-function SelectionContent({ form, handleChange }: ISelectionCardProps) {
+function SelectionContent({
+  isInit,
+  setIsInit,
+  form,
+  handleChange,
+}: ISelectionCardProps) {
   const { type } = form;
 
   switch (type) {
@@ -36,9 +43,23 @@ function SelectionContent({ form, handleChange }: ISelectionCardProps) {
         />
       );
     case 'radio':
-      return <RadioViewer form={form} handleChange={handleChange} />;
+      return (
+        <RadioViewer
+          isInit={isInit}
+          setIsInit={setIsInit}
+          form={form}
+          handleChange={handleChange}
+        />
+      );
     case 'checkbox':
-      return <CheckBoxViewer form={form} handleChange={handleChange} />;
+      return (
+        <CheckBoxViewer
+          isInit={isInit}
+          setIsInit={setIsInit}
+          form={form}
+          handleChange={handleChange}
+        />
+      );
     case 'dropdown':
       return (
         <DropDownViewer form={form} isEditable handleChange={handleChange} />
@@ -48,7 +69,12 @@ function SelectionContent({ form, handleChange }: ISelectionCardProps) {
   }
 }
 
-export function SelectionCard({ form, handleChange }: ISelectionCardProps) {
+export function SelectionCard({
+  isInit,
+  setIsInit,
+  form,
+  handleChange,
+}: ISelectionCardProps) {
   const { title, isRequired, error } = form;
 
   return (
@@ -58,7 +84,12 @@ export function SelectionCard({ form, handleChange }: ISelectionCardProps) {
           {title}
           {isRequired && <Required />}
         </S.CardHeader>
-        <SelectionContent form={form} handleChange={handleChange} />
+        <SelectionContent
+          isInit={isInit}
+          setIsInit={setIsInit}
+          form={form}
+          handleChange={handleChange}
+        />
         <S.CardContents />
         {error && (
           <S.CardVaildator>

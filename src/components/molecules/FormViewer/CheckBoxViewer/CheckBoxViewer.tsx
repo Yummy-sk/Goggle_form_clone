@@ -11,6 +11,8 @@ interface IInitialValue {
 }
 
 interface ICheckBoxViewerProps {
+  isInit?: boolean | null;
+  setIsInit?: React.Dispatch<React.SetStateAction<boolean>> | null;
   form: IFormState | ISelection;
   handleChange?: ({ nextValue }: { nextValue: string[] }) => void | null;
 }
@@ -40,7 +42,12 @@ function getInitialState({
   return initialState;
 }
 
-export function CheckBoxViewer({ form, handleChange }: ICheckBoxViewerProps) {
+export function CheckBoxViewer({
+  isInit,
+  setIsInit,
+  form,
+  handleChange,
+}: ICheckBoxViewerProps) {
   const { options, isEtc } = form;
 
   const [selection, setSelection] = useState<Array<IInitialValue>>(
@@ -78,8 +85,12 @@ export function CheckBoxViewer({ form, handleChange }: ICheckBoxViewerProps) {
   );
 
   useEffect(() => {
+    if (isInit !== null && setIsInit) {
+      setIsInit(false);
+    }
+
     setSelection(getInitialState({ options, isEtc }));
-  }, [options, isEtc]);
+  }, [options, isEtc, isInit, setIsInit]);
 
   if (!Array.isArray(options) || options.length === 0 || selection.length === 0)
     return null;
@@ -92,6 +103,7 @@ export function CheckBoxViewer({ form, handleChange }: ICheckBoxViewerProps) {
             key={sel.key}
             control={<S.FormCheckBox />}
             label={sel.label}
+            checked={sel.checked}
             onChange={() => onChange({ key: sel.key })}
           />
         ))}
@@ -101,5 +113,7 @@ export function CheckBoxViewer({ form, handleChange }: ICheckBoxViewerProps) {
 }
 
 CheckBoxViewer.defaultProps = {
+  isInit: null,
+  setIsInit: null,
   handleChange: null,
 };

@@ -9,6 +9,7 @@ interface IUseForm {
 
 export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
   const [values, setValues] = useState<Array<ISelection>>(initialValues);
+  const [isInit, setIsInit] = useState<boolean>(false);
 
   const handleChange = useCallback(
     ({ key }: { key: string }) =>
@@ -49,6 +50,7 @@ export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
   };
 
   const removeAll = useCallback(() => {
+    setIsInit(true);
     setValues(initialValues);
   }, [initialValues]);
 
@@ -57,5 +59,7 @@ export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
     handleChange,
     handleSubmit,
     removeAll,
+    isInit,
+    setIsInit,
   };
 }

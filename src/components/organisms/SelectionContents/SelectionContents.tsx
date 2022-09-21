@@ -16,11 +16,12 @@ export function SelectionContents({
 }: ISelectionContentsProps) {
   const navigate = useNavigate();
   const initialValues = getInitialState({ formState });
-  const { values, handleChange, handleSubmit, removeAll } = useForm({
-    initialValues,
-    onSubmit,
-    validateState,
-  });
+  const { values, handleChange, handleSubmit, removeAll, isInit, setIsInit } =
+    useForm({
+      initialValues,
+      onSubmit,
+      validateState,
+    });
 
   if (!titleState || !formState) {
     navigate('/');
@@ -42,6 +43,8 @@ export function SelectionContents({
 
       {values.map(form => (
         <SelectionCard
+          isInit={isInit}
+          setIsInit={setIsInit}
           form={form}
           handleChange={handleChange({ key: form.key })}
         />
