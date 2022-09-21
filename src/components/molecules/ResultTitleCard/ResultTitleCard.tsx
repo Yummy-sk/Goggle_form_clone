@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import { AccordionDetails, Divider, Typography } from '@mui/material';
 import { IResultState } from 'types/result';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -22,7 +23,7 @@ function ReturnAnswer({ answer }: { answer: string | Array<string> }) {
   return (
     <ul>
       {answer.map((ans, idx) => (
-        <li>
+        <li key={nanoid()}>
           <Typography>{`${getStringFromASCII({
             ascii: 65,
             idx,
