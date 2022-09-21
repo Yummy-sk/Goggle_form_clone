@@ -100,4 +100,8 @@ export const RadioAndCheckBoxDragIndicator = styled(DragIndicatorIcon)`
 
 export const IconWrapper = styled.div`
   width: 30px;
+
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
 `;
