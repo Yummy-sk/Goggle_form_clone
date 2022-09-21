@@ -22,7 +22,7 @@ export const RadioAndCheckBoxSelectionContainer = styled.div`
   box-sizing: border-box;
 
   &:not(:last-child) {
-    margin-bottom: 4px;
+    margin-bottom: 16px;
   }
 `;
 
