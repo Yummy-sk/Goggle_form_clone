@@ -105,3 +105,7 @@ export const IconWrapper = styled.div`
     margin-right: 12px;
   }
 `;
+
+export const IconEtcWrapper = styled(IconWrapper)`
+  margin-left: 42px;
+`;
