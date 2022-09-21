@@ -5,8 +5,8 @@ function getInitialValue({ type }: { type: ITypes }) {
     case 'short-text':
     case 'long-text':
     case 'dropdown':
-      return '';
     case 'radio':
+      return '';
     case 'checkbox':
       return [];
     default:
@@ -20,7 +20,7 @@ export function getInitialState({
   formState: Array<IFormState>;
 }): Array<ISelection> {
   return formState.map(form => {
-    const { key, title, type, isRequired, options } = form;
+    const { key, title, type, isRequired, options, isEtc } = form;
 
     return {
       key,
@@ -30,6 +30,7 @@ export function getInitialState({
       options: options || '',
       value: getInitialValue({ type }),
       error: false,
+      isEtc: isEtc || false,
     };
   });
 }

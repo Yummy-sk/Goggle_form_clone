@@ -1,4 +1,4 @@
-import { Required, DropDownViewer, TextViewer } from 'components';
+import { Required, DropDownViewer, TextViewer, RadioViewer } from 'components';
 import { ISelection, IStateChangeProps } from 'types/form';
 import * as S from './SelectionCard.style';
 
@@ -29,8 +29,8 @@ function SelectionContent({ form, handleChange }: ISelectionCardProps) {
           handleChange={handleChange}
         />
       );
-    // case 'radio':
-    //   return <RadioViewer />;
+    case 'radio':
+      return <RadioViewer form={form} handleChange={handleChange} />;
     // case 'checkbox':
     //   return <CheckBoxViewer />;
     case 'dropdown':

@@ -29,6 +29,7 @@ export interface ISelection {
   value: string | Array<string>;
   options: string | Array<string>;
   error: boolean;
+  isEtc: boolean;
 }
 
 export interface IStateChangeProps {

@@ -10,7 +10,7 @@ import * as S from './DropDownViewer.style';
 interface IDropDownViewerProps {
   form: IFormState | ISelection;
   isEditable: boolean;
-  handleChange: ({ nextValue }: IStateChangeProps) => void;
+  handleChange?: ({ nextValue }: IStateChangeProps) => void | null;
 }
 
 function Selection({
@@ -69,7 +69,7 @@ export function DropDownViewer({
 }: IDropDownViewerProps) {
   return (
     <S.Container>
-      {isEditable ? (
+      {handleChange && isEditable ? (
         <Selection form={form as ISelection} handleChange={handleChange} />
       ) : (
         <Viewer form={form} />
@@ -77,3 +77,7 @@ export function DropDownViewer({
     </S.Container>
   );
 }
+
+DropDownViewer.defaultProps = {
+  handleChange: null,
+};
