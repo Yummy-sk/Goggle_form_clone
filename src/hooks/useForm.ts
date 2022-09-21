@@ -7,7 +7,24 @@ interface IUseForm {
   validateState: ({ values }: { values: Array<ISelection> }) => boolean;
 }
 
-export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
+interface IUseFormReturn {
+  values: Array<ISelection>;
+  handleChange: ({
+    key,
+  }: {
+    key: string;
+  }) => ({ nextValue }: IStateChangeProps) => void;
+  handleSubmit: () => void;
+  removeAll: () => void;
+  isInit: boolean;
+  setIsInit: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function useForm({
+  initialValues,
+  onSubmit,
+  validateState,
+}: IUseForm): IUseFormReturn {
   const [values, setValues] = useState<Array<ISelection>>(initialValues);
   const [isInit, setIsInit] = useState<boolean>(false);
 
