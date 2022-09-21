@@ -8,7 +8,6 @@ interface ITextViewer {
 }
 
 export function TextViewer({ form, type, isEditable }: ITextViewer) {
-  console.log(form);
   return (
     <S.Container>
       {isEditable ? (

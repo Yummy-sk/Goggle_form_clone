@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ResultTitleCard } from 'components';
+import { ResultTitleCard, ResultCard } from 'components';
 import { IFormState } from 'types/form';
 import * as S from './ResultContents.style';
 
@@ -31,7 +31,9 @@ export function ResultContents({
         description={description || ''}
         isIncludeRequiredForm={checkIsIncludeRequiredForm()}
       />
-      <div>ds</div>
+      {formState.map(form => (
+        <ResultCard form={form} />
+      ))}
     </S.ResultContentsContainer>
   );
 }

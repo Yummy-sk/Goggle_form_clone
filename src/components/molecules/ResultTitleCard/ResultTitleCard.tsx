@@ -15,8 +15,6 @@ export function ResultTitleCard({
   description,
   isIncludeRequiredForm,
 }: IResultTitleCardProps) {
-  console.log(isIncludeRequiredForm);
-
   return (
     <S.CardContainer style={{ maxWidth: '600px' }}>
       <S.CardTop />

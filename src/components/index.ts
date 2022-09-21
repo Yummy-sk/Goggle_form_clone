@@ -12,6 +12,7 @@ export { Required } from 'components/atoms/Required';
 export { TitleCard } from 'components/molecules/TitleCard';
 export { ResultTitleCard } from 'components/molecules/ResultTitleCard';
 export { FormCard } from 'components/molecules/FormCard';
+export { ResultCard } from 'components/molecules/ResultCard';
 export { FormAddButton } from 'components/molecules/FormAddButton';
 export {
   RadioAndCheckBoxInput,
