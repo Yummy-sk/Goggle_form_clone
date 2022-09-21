@@ -8,7 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { SelectChangeEvent, Divider, Typography } from '@mui/material';
+import { SelectChangeEvent, Divider, Typography, Zoom } from '@mui/material';
 import {
   IconButton,
   Select,
@@ -188,7 +188,9 @@ export function FormCardActive({
 
   return (
     <S.CardContainer>
-      <S.CardActivator />
+      <Zoom in>
+        <S.CardActivator />
+      </Zoom>
       <S.CardContentWrapper>
         <S.CardContentHeader>
           <S.DragIndicator />
