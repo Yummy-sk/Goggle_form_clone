@@ -1,9 +1,19 @@
 import * as S from './TextInput.style';
 
-export function TextInput() {
+interface ITextInputProps {
+  type: 'long' | 'short';
+}
+
+export function TextInput({ type }: ITextInputProps) {
   return (
-    <S.LongTextInputContainer>
-      <h1>LongTextInput</h1>
-    </S.LongTextInputContainer>
+    <S.TextInputContainer>
+      <S.TextInputField
+        id='standard-basic'
+        variant='standard'
+        value={type === 'long' ? '장문형 텍스트' : '단문형 텍스트'}
+        readOnly
+        type={type}
+      />
+    </S.TextInputContainer>
   );
 }

@@ -96,9 +96,9 @@ export function FormInput({
 }) {
   switch (selection) {
     case 'short-text':
-      return <TextInput />;
+      return <TextInput type='short' />;
     case 'long-text':
-      return <TextInput />;
+      return <TextInput type='long' />;
     case 'radio':
       return <RadioAndCheckBoxInput type='radio' form={form} />;
     case 'checkbox':
