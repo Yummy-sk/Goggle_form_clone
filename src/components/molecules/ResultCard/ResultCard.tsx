@@ -1,4 +1,4 @@
-import { Required } from 'components';
+import { Required, TextViewer } from 'components';
 import { IFormState } from 'types/form';
 import * as S from './ResultCard.style';
 
@@ -17,7 +17,7 @@ export function ResultCard({ form }: IResultCardProps) {
           {isRequired && <Required />}
         </S.CardHeader>
         <S.CardContents>
-          <div>sds</div>
+          <TextViewer form={form} type='short-text' isEditable />
         </S.CardContents>
       </S.CardWrapper>
     </S.CardContainer>

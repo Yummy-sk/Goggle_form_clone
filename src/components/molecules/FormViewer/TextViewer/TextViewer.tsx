@@ -7,11 +7,30 @@ interface ITextViewer {
   isEditable: boolean;
 }
 
+interface ITextViewrProps {
+  type: 'short-text' | 'long-text';
+}
+
+function TextInput({ type }: ITextViewrProps) {
+  const isLongText = type === 'long-text';
+
+  return (
+    <S.TextInputArea
+      id='standard-basic'
+      variant='standard'
+      placeholder='내 답변'
+      type={type}
+      multiline={isLongText}
+    />
+  );
+}
+
 export function TextViewer({ form, type, isEditable }: ITextViewer) {
+  console.log(form);
   return (
     <S.Container>
       {isEditable ? (
-        <div>나중에 할꺼에욤</div>
+        <TextInput type={type} />
       ) : (
         <S.TextInputViewer type={type} />
       )}
