@@ -1,35 +1,51 @@
-import { FormControl, MenuItem, Select } from '@mui/material';
-import { IFormState } from 'types/form';
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
+import { IFormState, ISelection, IStateChangeProps } from 'types/form';
 import * as S from './DropDownViewer.style';
 
 interface IDropDownViewerProps {
-  form: IFormState;
+  form: IFormState | ISelection;
   isEditable: boolean;
+  handleChange: ({ nextValue }: IStateChangeProps) => void;
 }
 
-function Selection({ form }: { form: IFormState }) {
-  const { options } = form;
+function Selection({
+  form,
+  handleChange,
+}: {
+  form: ISelection;
+  handleChange: ({ nextValue }: IStateChangeProps) => void;
+}) {
+  const { options, value } = form;
 
   if (!Array.isArray(options) || options.length === 0) return null;
+
+  const onChange = (e: SelectChangeEvent<string | string[]>) => {
+    handleChange({ nextValue: e.target.value as string });
+  };
 
   return (
     <FormControl style={{ width: '180px', color: '#757575' }}>
       <Select
-        value=''
+        value={value}
         displayEmpty
-        inputProps={{ 'aria-label': 'Without label' }}>
+        inputProps={{ 'aria-label': 'Without label' }}
+        onChange={onChange}>
         <MenuItem value=''>
           <em>선택</em>
         </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        {Array.isArray(options) &&
+          options.map(option => <MenuItem value={option}>{option}</MenuItem>)}
       </Select>
     </FormControl>
   );
 }
 
-function Viewer({ form }: { form: IFormState }) {
+function Viewer({ form }: { form: IFormState | ISelection }) {
   const { options } = form;
 
   if (!Array.isArray(options) || options.length === 0) return null;
@@ -46,10 +62,18 @@ function Viewer({ form }: { form: IFormState }) {
   );
 }
 
-export function DropDownViewer({ form, isEditable }: IDropDownViewerProps) {
+export function DropDownViewer({
+  form,
+  isEditable,
+  handleChange,
+}: IDropDownViewerProps) {
   return (
     <S.Container>
-      {isEditable ? <Selection form={form} /> : <Viewer form={form} />}
+      {isEditable ? (
+        <Selection form={form as ISelection} handleChange={handleChange} />
+      ) : (
+        <Viewer form={form} />
+      )}
     </S.Container>
   );
 }

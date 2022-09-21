@@ -32,6 +32,5 @@ export interface ISelection {
 }
 
 export interface IStateChangeProps {
-  key: string;
   nextValue: string | Array<string>;
 }

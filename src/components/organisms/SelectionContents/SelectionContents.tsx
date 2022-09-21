@@ -40,9 +40,18 @@ export function SelectionContents({
         isIncludeRequiredForm={checkIsIncludeRequiredForm()}
       />
 
-      {formState.map(form => (
-        <SelectionCard form={form} />
+      {values.map(form => (
+        <SelectionCard
+          form={form}
+          handleChange={handleChange({ key: form.key })}
+        />
       ))}
+      <button type='button' onClick={handleSubmit}>
+        눌러
+      </button>
+      <button type='button' onClick={removeAll}>
+        초기화
+      </button>
     </S.SelectionContentsContainer>
   );
 }

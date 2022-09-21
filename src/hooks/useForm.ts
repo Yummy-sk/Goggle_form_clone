@@ -11,24 +11,26 @@ export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
   const [values, setValues] = useState<Array<ISelection>>(initialValues);
 
   const handleChange = useCallback(
-    ({ key, nextValue }: IStateChangeProps) => {
-      const nextValues = values.map(value => {
-        if (value.key === key) {
-          return {
-            ...value,
-            value: nextValue,
-            error: false,
-          };
-        }
-        return value;
-      });
+    ({ key }: { key: string }) =>
+      ({ nextValue }: IStateChangeProps) => {
+        const nextValues = values.map(value => {
+          if (value.key === key) {
+            return {
+              ...value,
+              value: nextValue,
+              error: false,
+            };
+          }
+          return value;
+        });
 
-      setValues(nextValues);
-    },
+        setValues(nextValues);
+      },
     [values],
   );
 
   const handleSubmit = () => {
+    console.log(values);
     if (validateState({ values })) {
       onSubmit({ values });
     }
