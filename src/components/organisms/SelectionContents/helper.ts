@@ -48,8 +48,8 @@ export function validateState({
         case 'short-text':
         case 'long-text':
         case 'dropdown':
-          return selectionValue !== '';
         case 'radio':
+          return selectionValue !== '';
         case 'checkbox':
           return selectionValue.length > 0;
         default:

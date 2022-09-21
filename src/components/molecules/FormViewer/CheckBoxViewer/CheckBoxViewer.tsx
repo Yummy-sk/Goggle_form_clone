@@ -1,23 +1,100 @@
+import { useState, useCallback } from 'react';
+import { nanoid } from 'nanoid';
 import { FormGroup, FormControlLabel } from '@mui/material';
-import { IFormState } from 'types/form';
+import { IFormState, ISelection } from 'types/form';
 import * as S from './CheckBoxViewer.style';
 
-export function CheckBoxViewer({ form }: { form: IFormState }) {
+interface IInitialValue {
+  key: string;
+  label: string;
+  checked: boolean;
+}
+
+interface ICheckBoxViewerProps {
+  form: IFormState | ISelection;
+  handleChange?: ({ nextValue }: { nextValue: string[] }) => void | null;
+}
+
+function getInitialState({
+  options,
+  isEtc,
+}: {
+  options: string | Array<string> | undefined;
+  isEtc: boolean | undefined;
+}) {
+  if (!Array.isArray(options) || !isEtc) return [];
+
+  const initialState: Array<IInitialValue> = options.map(option => ({
+    key: nanoid(),
+    label: option,
+    checked: false,
+  }));
+
+  if (isEtc) {
+    return [
+      ...initialState,
+      { key: nanoid(), label: '기타...', checked: false },
+    ];
+  }
+
+  return initialState;
+}
+
+export function CheckBoxViewer({ form, handleChange }: ICheckBoxViewerProps) {
   const { options, isEtc } = form;
+
+  const [selection, setSelection] = useState<Array<IInitialValue>>(
+    getInitialState({ options, isEtc }),
+  );
+
+  const onChange = useCallback(
+    ({ key }: { key: string }) => {
+      const nextSelection = selection.map(item => {
+        if (item.key === key) {
+          return { ...item, checked: !item.checked };
+        }
+
+        return item;
+      });
+
+      if (handleChange) {
+        const selectionValue = nextSelection.reduce(
+          (acc: Array<string>, cur: IInitialValue) => {
+            if (cur.checked) {
+              return [...acc, cur.label];
+            }
+
+            return acc;
+          },
+          [],
+        );
+
+        handleChange({ nextValue: selectionValue });
+      }
+
+      setSelection(nextSelection);
+    },
+    [handleChange, selection],
+  );
 
   if (!Array.isArray(options) || options.length === 0) return null;
 
   return (
     <S.Container>
       <FormGroup>
-        {options.map(option => (
-          <FormControlLabel control={<S.FormCheckBox />} label={option} />
+        {selection.map(sel => (
+          <FormControlLabel
+            key={sel.key}
+            control={<S.FormCheckBox />}
+            label={sel.label}
+            onChange={() => onChange({ key: sel.key })}
+          />
         ))}
-
-        {isEtc && (
-          <FormControlLabel control={<S.FormCheckBox />} label='기타...' />
-        )}
       </FormGroup>
     </S.Container>
   );
 }
+
+CheckBoxViewer.defaultProps = {
+  handleChange: null,
+};
