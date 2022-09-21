@@ -23,7 +23,7 @@ function FormCardInactiveContent({ form }: IFormCardInactiveProps) {
     case 'checkbox':
       return <CheckBoxViewer form={form} />;
     case 'dropdown':
-      return <DropDownViewer />;
+      return <DropDownViewer form={form} isEditable={false} />;
     default:
       return null;
   }
