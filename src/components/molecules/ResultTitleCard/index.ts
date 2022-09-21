@@ -1,1 +1,0 @@
-export { ResultTitleCard } from './ResultTitleCard';

@@ -2,7 +2,7 @@ import { useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'hooks';
-import { Layout, ResultContents } from 'components';
+import { Layout, SelectionContents } from 'components';
 import { IFormState } from 'types/form';
 
 interface IReudceState {
@@ -10,7 +10,7 @@ interface IReudceState {
   formState: Array<IFormState>;
 }
 
-export function Result() {
+export function Selection() {
   const navigate = useNavigate();
   const { items } = useAppSelector(state => state.form);
   const { titleState, formState } = useMemo(
@@ -42,7 +42,7 @@ export function Result() {
     <>
       <Helmet title={titleState.title} />
       <Layout isMain={false}>
-        <ResultContents titleState={titleState} formState={formState} />
+        <SelectionContents titleState={titleState} formState={formState} />
       </Layout>
     </>
   );

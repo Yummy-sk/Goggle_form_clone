@@ -10,9 +10,9 @@ export { Required } from 'components/atoms/Required';
 
 // molecules
 export { TitleCard } from 'components/molecules/TitleCard';
-export { ResultTitleCard } from 'components/molecules/ResultTitleCard';
+export { SelectionTitleCard } from 'components/molecules/SelectionTitleCard';
 export { FormCard } from 'components/molecules/FormCard';
-export { ResultCard } from 'components/molecules/ResultCard';
+export { SelectionCard } from 'components/molecules/SelectionCard';
 export { FormAddButton } from 'components/molecules/FormAddButton';
 export {
   RadioAndCheckBoxInput,
@@ -30,7 +30,7 @@ export {
 // organisms
 export { Navigation } from 'components/organisms/Navigation';
 export { MainContents } from 'components/organisms/MainContents';
-export { ResultContents } from 'components/organisms/ResultContents';
+export { SelectionContents } from 'components/organisms/SelectionContents';
 
 // template
 export { Layout } from 'components/template/Layout';

@@ -1,17 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import { ResultTitleCard, ResultCard } from 'components';
+import { SelectionTitleCard, SelectionCard } from 'components';
 import { IFormState } from 'types/form';
-import * as S from './ResultContents.style';
+import * as S from './SelectionContents.style';
 
-interface IResultContentsProps {
+interface ISelectionContentsProps {
   titleState: IFormState;
   formState: Array<IFormState>;
 }
 
-export function ResultContents({
+export function SelectionContents({
   titleState,
   formState,
-}: IResultContentsProps) {
+}: ISelectionContentsProps) {
   const navigate = useNavigate();
 
   if (!titleState || !formState) {
@@ -25,16 +25,16 @@ export function ResultContents({
   const { title, description } = titleState;
 
   return (
-    <S.ResultContentsContainer>
-      <ResultTitleCard
+    <S.SelectionContentsContainer>
+      <SelectionTitleCard
         title={title}
         description={description || ''}
         isIncludeRequiredForm={checkIsIncludeRequiredForm()}
       />
 
       {formState.map(form => (
-        <ResultCard form={form} />
+        <SelectionCard form={form} />
       ))}
-    </S.ResultContentsContainer>
+    </S.SelectionContentsContainer>
   );
 }

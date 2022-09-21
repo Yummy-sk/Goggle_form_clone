@@ -31,8 +31,8 @@ export function Navigation({ title }: { title: string }) {
           />
         </S.LeftContentWrapper>
         <S.ResultIcon>
-          <Link to={`/result/${nanoid()}`} rel='noreferrer'>
-            <img src={view} alt='show result icon' />
+          <Link to={`/selection/${nanoid()}`} rel='noreferrer'>
+            <img src={view} alt='show selection icon' />
           </Link>
         </S.ResultIcon>
       </S.NavContainer>

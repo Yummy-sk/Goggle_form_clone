@@ -1,12 +1,12 @@
 import { Required } from 'components';
 import { IFormState } from 'types/form';
-import * as S from './ResultCard.style';
+import * as S from './SelectionCard.style';
 
-interface IResultCardProps {
+interface ISelectionCardProps {
   form: IFormState;
 }
 
-export function ResultCard({ form }: IResultCardProps) {
+export function SelectionCard({ form }: ISelectionCardProps) {
   const { title, isRequired } = form;
 
   return (

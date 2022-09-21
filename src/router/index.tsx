@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Main, Result } from 'page';
+import { Main, Selection } from 'page';
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/result/:id' element={<Result />} />
+        <Route path='/selection/:id' element={<Selection />} />
       </Routes>
     </BrowserRouter>
   );
