@@ -1,3 +1,4 @@
+import { useCallback, memo } from 'react';
 import { TitleCard, FormCard } from 'components';
 import { useAppDispatch } from 'hooks';
 import {
@@ -18,77 +19,90 @@ interface IMainContentsProps {
   titleState: IFormState;
   formState: Array<IFormState>;
 }
-
-export function MainContents({
-  items,
-  titleState,
-  formState,
-}: IMainContentsProps) {
+function MainContents({ items, titleState, formState }: IMainContentsProps) {
   const dispatch = useAppDispatch();
 
   const { key, title, description, isActivated } = titleState;
 
-  const onUpdateFormTitle = ({
-    e,
-    type,
-  }: {
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
-    type: 'title' | 'description';
-  }) => {
-    dispatch(updateTitleForm({ type, value: e.target.value }));
-  };
+  const onUpdateFormTitle = useCallback(
+    ({
+      e,
+      type,
+    }: {
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+      type: 'title' | 'description';
+    }) => {
+      dispatch(updateTitleForm({ type, value: e.target.value }));
+    },
+    [dispatch],
+  );
 
-  const onActivate = ({ formKey }: { formKey: string }) =>
-    dispatch(setActivated({ key: formKey }));
-
-  const onRemove = ({ formKey }: { formKey: string }) => {
-    dispatch(
-      removeForm({
-        key: formKey,
-        state: items,
-      }),
-    );
-  };
-
-  const onDuplicate =
+  const onActivate = useCallback(
     ({ formKey }: { formKey: string }) =>
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.stopPropagation();
+      dispatch(setActivated({ key: formKey })),
+    [dispatch],
+  );
 
+  const onRemove = useCallback(
+    ({ formKey }: { formKey: string }) => {
       dispatch(
-        duplicateForm({
+        removeForm({
+          key: formKey,
           state: items,
-          targetItem: items.find(item => item.key === formKey) as IFormState,
         }),
       );
-    };
+    },
+    [dispatch, items],
+  );
 
-  const onRequired = ({ formKey }: { formKey: string }) => {
-    dispatch(
-      setRequired({
-        key: formKey,
-        state: items,
-      }),
-    );
-  };
-
-  const onChangeTitle =
+  const onDuplicate = useCallback(
     ({ formKey }: { formKey: string }) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation();
+
+        dispatch(
+          duplicateForm({
+            state: items,
+            targetItem: items.find(item => item.key === formKey) as IFormState,
+          }),
+        );
+      },
+    [dispatch, items],
+  );
+
+  const onRequired = useCallback(
+    ({ formKey }: { formKey: string }) => {
       dispatch(
-        setFormTitle({ key: formKey, title: e.target.value, state: items }),
+        setRequired({
+          key: formKey,
+          state: items,
+        }),
       );
-    };
+    },
+    [dispatch, items],
+  );
 
-  const onChangeFormType =
+  const onChangeTitle = useCallback(
     ({ formKey }: { formKey: string }) =>
-    ({ type, form }: { type: ITypes; form: IFormState }) => {
-      const nextState = getStateWhenChangeOption({ type, form });
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(
+          setFormTitle({ key: formKey, title: e.target.value, state: items }),
+        );
+      },
+    [dispatch, items],
+  );
 
-      if (nextState) {
-        dispatch(setFormType({ key: formKey, nextState }));
-      }
-    };
+  const onChangeFormType = useCallback(
+    ({ formKey }: { formKey: string }) =>
+      ({ type, form }: { type: ITypes; form: IFormState }) => {
+        const nextState = getStateWhenChangeOption({ type, form });
+
+        if (nextState) {
+          dispatch(setFormType({ key: formKey, nextState }));
+        }
+      },
+    [dispatch],
+  );
 
   return (
     <S.MainContentsContainer>
@@ -114,3 +128,7 @@ export function MainContents({
     </S.MainContentsContainer>
   );
 }
+
+const MemoizedMainContents = memo(MainContents);
+
+export { MemoizedMainContents as MainContents };
