@@ -21,9 +21,13 @@ export const resultSlice = createSlice({
     ) => {
       state.result = action.payload;
     },
+    initState: (state: IResultStore) => {
+      state.title = initialState.title;
+      state.result = initialState.result;
+    },
   },
 });
 
-export const { updateTitle, updateResult } = resultSlice.actions;
+export const { updateTitle, updateResult, initState } = resultSlice.actions;
 
 export default resultSlice.reducer;

@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { SelectionTitleCard, SelectionCard } from 'components';
-import { useForm } from 'hooks';
-import { IFormState } from 'types/form';
-import { getInitialState, validateState, onSubmit } from './helper';
+import { useForm, useAppDispatch } from 'hooks';
+import { updateTitle, updateResult } from 'store';
+import { IFormState, ISelection } from 'types/form';
+import { IResultState } from 'types/result';
+import { getInitialState, validateState } from './helper';
 import * as S from './SelectionContents.style';
 
 interface ISelectionContentsProps {
@@ -15,7 +17,22 @@ export function SelectionContents({
   formState,
 }: ISelectionContentsProps) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const initialValues = getInitialState({ formState });
+
+  const onSubmit = ({ values }: { values: Array<ISelection> }) => {
+    const updateState: Array<IResultState> = values.map(value => ({
+      key: value.key,
+      title: value.title,
+      value: value.value,
+      type: value.type,
+    }));
+
+    dispatch(updateTitle({ title: titleState.title }));
+    dispatch(updateResult(updateState));
+    navigate('/result', { replace: true });
+  };
+
   const { values, handleChange, handleSubmit, removeAll, isInit, setIsInit } =
     useForm({
       initialValues,
