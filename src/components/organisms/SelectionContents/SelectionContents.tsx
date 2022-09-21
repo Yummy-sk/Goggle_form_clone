@@ -46,12 +46,20 @@ export function SelectionContents({
           handleChange={handleChange({ key: form.key })}
         />
       ))}
-      <button type='button' onClick={handleSubmit}>
-        눌러
-      </button>
-      <button type='button' onClick={removeAll}>
-        초기화
-      </button>
+      <S.SelectionContentSubmitContainer>
+        <S.SubmitButton
+          variant='contained'
+          onClick={handleSubmit}
+          style={{ backgroundColor: '#6237ae', color: '#fff' }}>
+          제출
+        </S.SubmitButton>
+        <S.ResetButton
+          variant='text'
+          onClick={removeAll}
+          style={{ color: '#6237ae' }}>
+          양식 지우기
+        </S.ResetButton>
+      </S.SelectionContentSubmitContainer>
     </S.SelectionContentsContainer>
   );
 }

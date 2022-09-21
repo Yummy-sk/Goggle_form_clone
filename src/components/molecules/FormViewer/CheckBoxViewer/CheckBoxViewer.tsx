@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { IFormState, ISelection } from 'types/form';
@@ -22,7 +22,7 @@ function getInitialState({
   options: string | Array<string> | undefined;
   isEtc: boolean | undefined;
 }) {
-  if (!Array.isArray(options) || !isEtc) return [];
+  if (!Array.isArray(options) || isEtc === undefined) return [];
 
   const initialState: Array<IInitialValue> = options.map(option => ({
     key: nanoid(),
@@ -77,7 +77,12 @@ export function CheckBoxViewer({ form, handleChange }: ICheckBoxViewerProps) {
     [handleChange, selection],
   );
 
-  if (!Array.isArray(options) || options.length === 0) return null;
+  useEffect(() => {
+    setSelection(getInitialState({ options, isEtc }));
+  }, [options, isEtc]);
+
+  if (!Array.isArray(options) || options.length === 0 || selection.length === 0)
+    return null;
 
   return (
     <S.Container>

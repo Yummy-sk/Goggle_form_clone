@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { Radio, RadioGroup, FormControl } from '@mui/material';
 import { IFormState, ISelection, IStateChangeProps } from 'types/form';
 import * as S from './RadioViewer.style';
@@ -28,6 +29,7 @@ export function RadioViewer({ form, handleChange }: IRadioViewerProps) {
           onChange={onChange}>
           {options.map(option => (
             <S.RadioControl
+              key={nanoid()}
               value={option}
               control={<Radio />}
               label={option}

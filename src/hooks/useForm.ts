@@ -30,7 +30,6 @@ export function useForm({ initialValues, onSubmit, validateState }: IUseForm) {
   );
 
   const handleSubmit = () => {
-    console.log(values);
     if (validateState({ values })) {
       onSubmit({ values });
       return;
