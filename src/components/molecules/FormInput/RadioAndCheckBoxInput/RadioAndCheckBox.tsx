@@ -69,16 +69,20 @@ function RadioAndCheckBoxSelection({
         onBlur={onBlur}
         onChange={onUpdate}
       />
-      {(isMouseOver || isFocused) && (
-        <IconButton style={{ marginLeft: '4px' }}>
-          <ImageIcon />
-        </IconButton>
-      )}
-      {optionLength > 1 && (
-        <IconButton style={{ marginLeft: '4px' }} onClick={onDelete}>
-          <CloseIcon />
-        </IconButton>
-      )}
+      <S.IconWrapper>
+        {(isMouseOver || isFocused) && (
+          <IconButton style={{ marginLeft: '4px' }}>
+            <ImageIcon />
+          </IconButton>
+        )}
+      </S.IconWrapper>
+      <S.IconWrapper>
+        {optionLength > 1 && (
+          <IconButton style={{ marginLeft: '4px' }} onClick={onDelete}>
+            <CloseIcon />
+          </IconButton>
+        )}
+      </S.IconWrapper>
     </S.RadioAndCheckBoxSelectionContainer>
   );
 }
