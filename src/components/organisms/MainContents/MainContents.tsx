@@ -113,6 +113,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
         onUpdateFormTitle={onUpdateFormTitle}
         onActivate={() => onActivate({ formKey: key })}
       />
+
       {formState.map(form => (
         <FormCard
           key={form.key}
