@@ -3,13 +3,14 @@ import { IResultState } from 'types/result';
 import * as S from './ResultContents.style';
 
 interface IResultContentsProps {
+  title: string;
   result: Array<IResultState>;
 }
 
-export function ResultContents({ result }: IResultContentsProps) {
+export function ResultContents({ title, result }: IResultContentsProps) {
   return (
     <S.ResultContentsContainer>
-      <ResultTitleCard result={result} />
+      <ResultTitleCard title={title} result={result} />
     </S.ResultContentsContainer>
   );
 }
