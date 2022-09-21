@@ -8,9 +8,7 @@ export const Container = styled.div`
   margin-top: 16px;
 `;
 
-export const RadioControl = styled(FormControlLabel)<{ isEtc: boolean }>`
-  ${({ isEtc }) => isEtc && `color: #70757a;`}
-
+export const RadioControl = styled(FormControlLabel)`
   & .MuiButtonBase-root {
     color: #9e9e9e;
   }
