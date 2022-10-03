@@ -220,6 +220,9 @@ export const formSlice = createSlice({
 
       state.items = items;
     },
+    setFormSequence: (state: IState, action: IAction<INextState>) => {
+      state.items = action.payload.nextState;
+    },
   },
 });
 
@@ -234,6 +237,7 @@ export const {
   setOption,
   setEtc,
   setFormType,
+  setFormSequence,
 } = formSlice.actions;
 
 export default formSlice.reducer;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useCallback, memo } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { TitleCard, FormCard } from 'components';
 import { useAppDispatch } from 'hooks';
 import {
@@ -11,6 +11,7 @@ import {
   setRequired,
   setFormTitle,
   setFormType,
+  setFormSequence,
 } from 'store';
 import { IFormState, ITypes } from 'types/form';
 import { getStateWhenChangeOption } from './helper';
@@ -109,6 +110,42 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch],
   );
 
+  const onChangeSequence = useCallback(
+    ({
+      sourceIdx,
+      destinationIdx,
+    }: {
+      sourceIdx: number;
+      destinationIdx: number;
+    }) => {
+      // 원래 있던거
+      const targetItem = items[sourceIdx];
+
+      console.log('targetItem', targetItem);
+      // 원래 있던거를 지우고
+      const nextState = items.filter(item => item.key !== targetItem.key);
+      // 새로운 위치에 넣어준다.
+      nextState.splice(destinationIdx, 0, targetItem);
+
+      console.log(
+        nextState.map((item, idx) => ({
+          ...item,
+          idx: idx + 1,
+        })),
+      );
+
+      dispatch(
+        setFormSequence({
+          nextState: nextState.map((item, idx) => ({
+            ...item,
+            idx: idx + 1,
+          })),
+        }),
+      );
+    },
+    [dispatch, items],
+  );
+
   return (
     <S.MainContentsContainer>
       <TitleCard
@@ -119,13 +156,18 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
         onActivate={() => onActivate({ formKey: key })}
       />
       <DragDropContext
-        onDragEnd={(...props) => console.log('onDragEnd', props)}>
+        onDragEnd={(param: DropResult) => {
+          const { destination, source } = param;
+
+          onChangeSequence({
+            sourceIdx: source.index,
+            destinationIdx: destination?.index || 0,
+          });
+        }}>
         <Droppable droppableId='card-drop'>
           {(provided, _) => (
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             <div
               ref={provided.innerRef}
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
               {...provided.droppableProps}
               style={{ width: '100%', maxWidth: '800px' }}>
               {formState.map(form => (
