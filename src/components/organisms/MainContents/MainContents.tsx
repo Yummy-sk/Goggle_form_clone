@@ -120,26 +120,13 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     }) => {
       // 원래 있던거
       const targetItem = items[sourceIdx];
-
-      console.log('targetItem', targetItem);
       // 원래 있던거를 지우고
       const nextState = items.filter(item => item.key !== targetItem.key);
       // 새로운 위치에 넣어준다.
       nextState.splice(destinationIdx, 0, targetItem);
-
-      console.log(
-        nextState.map((item, idx) => ({
-          ...item,
-          idx: idx + 1,
-        })),
-      );
-
       dispatch(
         setFormSequence({
-          nextState: nextState.map((item, idx) => ({
-            ...item,
-            idx: idx + 1,
-          })),
+          nextState,
         }),
       );
     },
@@ -147,23 +134,23 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
   );
 
   return (
-    <S.MainContentsContainer>
-      <TitleCard
-        title={title}
-        description={description || ''}
-        isActivated={isActivated}
-        onUpdateFormTitle={onUpdateFormTitle}
-        onActivate={() => onActivate({ formKey: key })}
-      />
-      <DragDropContext
-        onDragEnd={(param: DropResult) => {
-          const { destination, source } = param;
+    <DragDropContext
+      onDragEnd={(param: DropResult) => {
+        const { destination, source } = param;
 
-          onChangeSequence({
-            sourceIdx: source.index,
-            destinationIdx: destination?.index || 0,
-          });
-        }}>
+        onChangeSequence({
+          sourceIdx: source.index,
+          destinationIdx: destination?.index || 0,
+        });
+      }}>
+      <S.MainContentsContainer>
+        <TitleCard
+          title={title}
+          description={description || ''}
+          isActivated={isActivated}
+          onUpdateFormTitle={onUpdateFormTitle}
+          onActivate={() => onActivate({ formKey: key })}
+        />
         <Droppable droppableId='card-drop'>
           {(provided, _) => (
             <div
@@ -182,11 +169,12 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
                   onChangeFormType={onChangeFormType({ formKey: form.key })}
                 />
               ))}
+              {provided.placeholder}
             </div>
           )}
         </Droppable>
-      </DragDropContext>
-    </S.MainContentsContainer>
+      </S.MainContentsContainer>
+    </DragDropContext>
   );
 }
 
