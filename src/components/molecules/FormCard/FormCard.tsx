@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import { IFormState, ITypes } from 'types/form';
 import { Grow } from '@mui/material';
 import { FormCardActive } from './FormCardActive';
@@ -30,22 +31,36 @@ function FormCard({
   onChangeFormType,
 }: IFormCardProps) {
   return (
-    <Grow in>
-      <S.CardContainer style={{ maxWidth: '800px' }} onClick={onActivate}>
-        {form.isActivated ? (
-          <FormCardActive
-            form={form}
-            onChangeTitle={onChangeTitle}
-            onRemove={onRemove}
-            onDuplicate={onDuplicate}
-            onRequired={onRequired}
-            onChangeFormType={onChangeFormType}
-          />
-        ) : (
-          <FormCardInactive form={form} />
-        )}
-      </S.CardContainer>
-    </Grow>
+    <Draggable
+      key={form.key}
+      draggableId={`card-drag-${form.idx - 1}`}
+      index={form.idx - 1}>
+      {(provided, _) => (
+        <Grow in>
+          <S.CardContainer
+            onClick={onActivate}
+            ref={provided.innerRef}
+            {...provided.draggableProps}>
+            {form.isActivated ? (
+              <FormCardActive
+                form={form}
+                onChangeTitle={onChangeTitle}
+                onRemove={onRemove}
+                onDuplicate={onDuplicate}
+                onRequired={onRequired}
+                onChangeFormType={onChangeFormType}
+                dragHandleProps={provided.dragHandleProps}
+              />
+            ) : (
+              <FormCardInactive
+                form={form}
+                dragHandleProps={provided.dragHandleProps}
+              />
+            )}
+          </S.CardContainer>
+        </Grow>
+      )}
+    </Draggable>
   );
 }
 

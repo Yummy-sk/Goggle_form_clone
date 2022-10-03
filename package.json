@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.5",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/styled-components": "^5.1.26",
     "craco-swc": "^0.5.1",
     "eslint": "^8.2.0",

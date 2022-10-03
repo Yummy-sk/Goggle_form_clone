@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useCallback, memo } from 'react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { TitleCard, FormCard } from 'components';
 import { useAppDispatch } from 'hooks';
 import {
@@ -116,19 +118,32 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
         onUpdateFormTitle={onUpdateFormTitle}
         onActivate={() => onActivate({ formKey: key })}
       />
-
-      {formState.map(form => (
-        <FormCard
-          key={form.key}
-          form={form}
-          onActivate={() => onActivate({ formKey: form.key })}
-          onRemove={onRemove({ formKey: form.key })}
-          onDuplicate={onDuplicate({ formKey: form.key })}
-          onRequired={() => onRequired({ formKey: form.key })}
-          onChangeTitle={onChangeTitle({ formKey: form.key })}
-          onChangeFormType={onChangeFormType({ formKey: form.key })}
-        />
-      ))}
+      <DragDropContext
+        onDragEnd={(...props) => console.log('onDragEnd', props)}>
+        <Droppable droppableId='card-drop'>
+          {(provided, _) => (
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            <div
+              ref={provided.innerRef}
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              {...provided.droppableProps}
+              style={{ width: '100%', maxWidth: '800px' }}>
+              {formState.map(form => (
+                <FormCard
+                  key={form.key}
+                  form={form}
+                  onActivate={() => onActivate({ formKey: form.key })}
+                  onRemove={onRemove({ formKey: form.key })}
+                  onDuplicate={onDuplicate({ formKey: form.key })}
+                  onRequired={() => onRequired({ formKey: form.key })}
+                  onChangeTitle={onChangeTitle({ formKey: form.key })}
+                  onChangeFormType={onChangeFormType({ formKey: form.key })}
+                />
+              ))}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </S.MainContentsContainer>
   );
 }
