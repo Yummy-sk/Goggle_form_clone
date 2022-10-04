@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useCallback, memo } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { TitleCard, FormCard } from 'components';
@@ -24,7 +23,6 @@ interface IMainContentsProps {
 }
 function MainContents({ items, titleState, formState }: IMainContentsProps) {
   const dispatch = useAppDispatch();
-
   const { key, title, description, isActivated } = titleState;
 
   const onUpdateFormTitle = useCallback(
@@ -126,7 +124,10 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
       nextState.splice(destinationIdx, 0, targetItem);
       dispatch(
         setFormSequence({
-          nextState,
+          nextState: nextState.map((item, idx) => ({
+            ...item,
+            idx: idx + 1,
+          })),
         }),
       );
     },

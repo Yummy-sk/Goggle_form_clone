@@ -32,7 +32,7 @@ function FormCard({
 }: IFormCardProps) {
   return (
     <Draggable
-      key={form.key}
+      key={`card-drag-${form.idx - 1}`}
       draggableId={`card-drag-${form.idx - 1}`}
       index={form.idx - 1}>
       {(provided, _) => (
