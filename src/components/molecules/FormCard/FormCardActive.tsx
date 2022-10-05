@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { nanoid } from '@reduxjs/toolkit';
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import ShortTextIcon from '@mui/icons-material/ShortText';
@@ -33,6 +34,7 @@ interface IFormCardActiveProps {
     type: ITypes;
     form: IFormState;
   }) => void;
+  dragHandleProps: DraggableProvidedDragHandleProps | undefined;
 }
 
 interface IForms {
@@ -141,6 +143,7 @@ export function FormCardActive({
   onRemove,
   onRequired,
   onChangeFormType,
+  dragHandleProps,
 }: IFormCardActiveProps) {
   const [selection, setSelection] = useState<ITypes>(form.type);
 
@@ -184,7 +187,8 @@ export function FormCardActive({
     setSelection(value as ITypes);
   };
 
-  if (form.isRequired === undefined) return null;
+  if (form.isRequired === undefined || dragHandleProps === undefined)
+    return null;
 
   return (
     <S.CardContainer>
@@ -192,7 +196,7 @@ export function FormCardActive({
         <S.CardActivator />
       </Zoom>
       <S.CardContentWrapper>
-        <S.CardContentHeader>
+        <S.CardContentHeader {...dragHandleProps}>
           <S.DragIndicator />
         </S.CardContentHeader>
         <FormInfo

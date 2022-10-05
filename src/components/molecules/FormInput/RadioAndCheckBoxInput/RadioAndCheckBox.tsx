@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
+import {
+  DragDropContext,
+  Droppable,
+  DropResult,
+  Draggable,
+} from 'react-beautiful-dnd';
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from 'components';
@@ -56,34 +62,45 @@ function RadioAndCheckBoxSelection({
   const { value, isMouseOver, isFocused } = option;
 
   return (
-    <S.RadioAndCheckBoxSelectionContainer
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseLeave}>
-      {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
+    <Draggable key={option.key} draggableId={option.key} index={option.idx}>
+      {(provided, _) => (
+        <S.RadioAndCheckBoxSelectionContainer
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseLeave}
+          ref={provided.innerRef}
+          {...provided.draggableProps}>
+          <S.DragIndecatorWrapper
+            {...provided.dragHandleProps}
+            isVisible={isMouseOver || isFocused}>
+            <S.RadioAndCheckBoxDragIndicator />
+          </S.DragIndecatorWrapper>
+          {type === 'radio' ? <S.RadioIcon /> : <S.CheckBoxIcon />}
 
-      <S.RadioAndCheckBoxTextInput
-        id='standard-basic'
-        variant='standard'
-        value={value}
-        onClick={onClick}
-        onBlur={onBlur}
-        onChange={onUpdate}
-      />
-      <S.IconWrapper>
-        {(isMouseOver || isFocused) && (
-          <IconButton style={{ marginLeft: '4px' }}>
-            <ImageIcon />
-          </IconButton>
-        )}
-      </S.IconWrapper>
-      <S.IconWrapper>
-        {optionLength > 1 && (
-          <IconButton style={{ marginLeft: '4px' }} onClick={onDelete}>
-            <CloseIcon />
-          </IconButton>
-        )}
-      </S.IconWrapper>
-    </S.RadioAndCheckBoxSelectionContainer>
+          <S.RadioAndCheckBoxTextInput
+            id='standard-basic'
+            variant='standard'
+            value={value}
+            onClick={onClick}
+            onBlur={onBlur}
+            onChange={onUpdate}
+          />
+          <S.IconWrapper>
+            {(isMouseOver || isFocused) && (
+              <IconButton style={{ marginLeft: '4px' }}>
+                <ImageIcon />
+              </IconButton>
+            )}
+          </S.IconWrapper>
+          <S.IconWrapper>
+            {optionLength > 1 && (
+              <IconButton style={{ marginLeft: '4px' }} onClick={onDelete}>
+                <CloseIcon />
+              </IconButton>
+            )}
+          </S.IconWrapper>
+        </S.RadioAndCheckBoxSelectionContainer>
+      )}
+    </Draggable>
   );
 }
 
@@ -148,7 +165,7 @@ export function RadioAndCheckBoxInput({
 
   const [options, setOptions] = useState<Array<IOption>>([
     ...op.map((o, idx) => ({
-      idx,
+      idx: idx + 1,
       key: nanoid(),
       value: o,
       isMouseOver: false,
@@ -272,31 +289,81 @@ export function RadioAndCheckBoxInput({
       );
     };
 
+  const onChangeSequence = ({
+    sourceIdx,
+    destinationIdx,
+  }: {
+    sourceIdx: number;
+    destinationIdx: number;
+  }) => {
+    const targetItem = options[sourceIdx - 1];
+
+    const nextState = options.filter(option => option.idx !== sourceIdx);
+
+    nextState.splice(destinationIdx - 1, 0, targetItem);
+
+    setOptions(
+      nextState.map((option, idx) => ({
+        ...option,
+        idx: idx + 1,
+      })),
+    );
+
+    dispatch(
+      setOption({
+        key: form.key,
+        options: nextState.map(state => state.value),
+      }),
+    );
+  };
+
   return (
-    <S.RadioAndCheckBoxInputContainer>
-      {options.map(option => (
-        <RadioAndCheckBoxSelection
-          key={option.key}
+    <DragDropContext
+      onDragEnd={(param: DropResult) => {
+        const { destination, source } = param;
+
+        if (destination?.index) {
+          onChangeSequence({
+            sourceIdx: source.index,
+            destinationIdx: destination.index,
+          });
+        }
+      }}>
+      <S.RadioAndCheckBoxInputContainer>
+        <Droppable droppableId='selection-drop'>
+          {(provided, _) => (
+            <div
+              ref={provided.innerRef}
+              style={{ width: '100%' }}
+              {...provided.droppableProps}>
+              {options.map(option => (
+                <RadioAndCheckBoxSelection
+                  key={option.key}
+                  type={type}
+                  option={option}
+                  optionLength={options.length}
+                  onMouseLeave={() => onMouseLeave({ key: option.key })}
+                  onMouseOver={() => onMouseOver({ key: option.key })}
+                  onBlur={() => onBlur({ key: option.key })}
+                  onClick={() => onClick({ key: option.key })}
+                  onDelete={() => onDelete({ key: option.key })}
+                  onUpdate={onUpdate({ key: option.key })}
+                />
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        {isEtcIncluded && (
+          <RadioAndCheckBoxEtcOption type={type} onEtcAdd={onEtcAdd} />
+        )}
+        <RadioAndCheckBoxAdder
           type={type}
-          option={option}
-          optionLength={options.length}
-          onMouseLeave={() => onMouseLeave({ key: option.key })}
-          onMouseOver={() => onMouseOver({ key: option.key })}
-          onBlur={() => onBlur({ key: option.key })}
-          onClick={() => onClick({ key: option.key })}
-          onDelete={() => onDelete({ key: option.key })}
-          onUpdate={onUpdate({ key: option.key })}
+          onAdd={onAdd}
+          isEtcIncluded={isEtcIncluded}
+          onEtcAdd={onEtcAdd}
         />
-      ))}
-      {isEtcIncluded && (
-        <RadioAndCheckBoxEtcOption type={type} onEtcAdd={onEtcAdd} />
-      )}
-      <RadioAndCheckBoxAdder
-        type={type}
-        onAdd={onAdd}
-        isEtcIncluded={isEtcIncluded}
-        onEtcAdd={onEtcAdd}
-      />
-    </S.RadioAndCheckBoxInputContainer>
+      </S.RadioAndCheckBoxInputContainer>
+    </DragDropContext>
   );
 }

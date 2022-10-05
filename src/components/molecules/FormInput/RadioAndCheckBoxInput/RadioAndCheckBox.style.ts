@@ -12,6 +12,7 @@ export const RadioAndCheckBoxInputContainer = styled.div`
 `;
 
 export const RadioAndCheckBoxSelectionContainer = styled.div`
+  position: relative;
   width: 100%;
   min-height: 40px;
 
@@ -90,6 +91,15 @@ export const RadioAndCheckBoxAdderButton = styled(Button)`
 export const RadioAndCheckBoxEtcAddButton = styled(Button)`
   font-size: 16px;
   font-weight: 400;
+`;
+
+export const DragIndecatorWrapper = styled.span<{ isVisible: boolean }>`
+  position: absolute;
+  visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+
+  pointer-events: ${({ isVisible }) => (isVisible ? 'auto' : 'none')};
+
+  left: -19px;
 `;
 
 export const RadioAndCheckBoxDragIndicator = styled(DragIndicatorIcon)`
