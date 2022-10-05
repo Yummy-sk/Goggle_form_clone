@@ -10,5 +10,6 @@ export {
   setOption,
   setEtc,
   setFormType,
+  setFormSequence,
 } from 'store/formSlice';
 export { updateTitle, updateResult, initState } from 'store/resultSlice';
