@@ -25,6 +25,20 @@ interface IDropDownItemProps {
   onAdd?: () => void;
 }
 
+/**
+ * DropDownItem
+ *
+ * isAdder에 따라 추가 버튼인지 아닌지를 구분합니다.
+ *
+ * @param isAdder 추가 버튼 여부
+ * @param option 드롭다운 아이템
+ * @param totalLength 드롭다운 아이템 총 개수
+ * @param onChange 드롭다운 아이템 변경 함수
+ * @param onDelete 드롭다운 아이템 삭제 함수
+ * @param onAdd 드롭다운 아이템 추가 함수
+ * @returns
+ */
+
 function DropDownItem({
   isAdder,
   option,
@@ -58,6 +72,15 @@ function DropDownItem({
   );
 }
 
+/**
+ * DropDownInput
+ *
+ * 드롭다운 아이템을 관리하는 컴포넌트입니다.
+ *
+ * @param form
+ * @returns JSX.Element
+ */
+
 export function DropDownInput({ form }: IDropDownInputProps) {
   const op = form.options as Array<string>;
   const dispatch = useAppDispatch();
@@ -66,6 +89,7 @@ export function DropDownInput({ form }: IDropDownInputProps) {
     op.map((o, idx) => ({ idx: idx + 1, key: nanoid(), value: o })),
   );
 
+  // 드롭다운 아이템 추가 함수
   const onAdd = () => {
     const nextState = [
       ...options.map((option, idx) => ({
@@ -87,6 +111,7 @@ export function DropDownInput({ form }: IDropDownInputProps) {
     setOptions(nextState);
   };
 
+  // 드롭다운 아이템 삭제 함수
   const onDelete = ({ key }: { key: string }) => {
     const nextState = options.reduce(
       (acc: Array<IOption>, cur: IOption, idx: number) => {
@@ -114,6 +139,7 @@ export function DropDownInput({ form }: IDropDownInputProps) {
     setOptions(nextState);
   };
 
+  // 드롭다운 아이템 변경 함수
   const onChange =
     ({ key }: { key: string }) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -21,6 +21,23 @@ interface IFormCardProps {
     form: IFormState;
   }) => void;
 }
+
+/**
+ * FormCard
+ *
+ * 입력할 Form의 카드 컴포넌트입니다.
+ *
+ * 현재 카드의 Active 상태에 따라 FormCardActive 또는 FormCardInactive 컴포넌트를 렌더링합니다.
+ *
+ * @param form 카드에 들어갈 폼 상태 값
+ * @param onActivate 카드 활성화 함수
+ * @param onRemove 카드 삭제 dispatch 함수
+ * @param onDuplicate 카드 복제 dispatch 함수
+ * @param onRequired 카드 필수 옵션 여부 dispatch 함수
+ * @param onChangeTitle 카드 제목 변경 dispatch 함수
+ * @param onChangeFormType 카드 타입 변경 dispatch 함수
+ * @returns JSX.Element
+ */
 function FormCard({
   form,
   onActivate,

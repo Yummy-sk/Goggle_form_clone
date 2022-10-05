@@ -34,6 +34,20 @@ function TextInput({ form, type, handleChange }: ITextViewrProps) {
   );
 }
 
+/**
+ * TextViewer
+ *
+ * Text 입력과 결과물을 보여주는 컴포넌트 입니다.
+ *
+ * isEditable이 true일 경우에는 입력이 가능하며, false일 경우에는 결과물만 보여줍니다.
+ *
+ * @param form
+ * @param type
+ * @param isEditable
+ * @param handleChange
+ * @returns JSX.Element
+ */
+
 export function TextViewer({
   form,
   type,

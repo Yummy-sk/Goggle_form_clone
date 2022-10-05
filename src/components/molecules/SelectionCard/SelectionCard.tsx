@@ -15,6 +15,18 @@ interface ISelectionCardProps {
   handleChange: ({ nextValue }: IStateChangeProps) => void;
 }
 
+/**
+ * SelectionContent
+ *
+ * Form 옵션에 따른 컴포넌트를 보여주는 컴포넌트 입니다.
+ *
+ * @param isInit - 초기화 여부
+ * @param setIsInit - 초기화 함수
+ * @param form - 선택 정보
+ * @param handleChange - 선택 정보 변경 함수
+ * @returns JSX.Element
+ */
+
 function SelectionContent({
   isInit,
   setIsInit,
@@ -69,6 +81,18 @@ function SelectionContent({
   }
 }
 
+/**
+ * SelectionCard
+ *
+ * 사용자가 선택한 옵션을 보여주는 컴포넌트 입니다.
+ *
+ * @param isInit - 초기화 여부
+ * @param setIsInit - 초기화 상태 변경 함수
+ * @param form - 선택 정보
+ * @param handleChange - 선택 정보 변경 함수
+ * @returns JSX.Element
+ */
+
 export function SelectionCard({
   isInit,
   setIsInit,
@@ -91,6 +115,7 @@ export function SelectionCard({
           handleChange={handleChange}
         />
         <S.CardContents />
+        {/* 애러라면 에러 상태값을 보여줍니다. */}
         {error && (
           <S.CardVaildator>
             <S.WarningIcon />

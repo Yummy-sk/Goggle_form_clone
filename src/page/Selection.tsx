@@ -10,6 +10,14 @@ interface IReudceState {
   formState: Array<IFormState>;
 }
 
+/**
+ * Selection
+ *
+ * 사용자가 선택한 옵션 페이지를 보여주는 컴포넌트 입니다.
+ *
+ * @returns JSX.Element
+ */
+
 export function Selection() {
   const navigate = useNavigate();
   const { items } = useAppSelector(state => state.form);
@@ -29,6 +37,7 @@ export function Selection() {
   );
 
   useEffect(() => {
+    // 유효하지 않으면 메인 페이지로 이동
     if (!items || items.length <= 1 || !titleState) {
       navigate('/');
     }
