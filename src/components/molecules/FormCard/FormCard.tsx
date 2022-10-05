@@ -31,10 +31,7 @@ function FormCard({
   onChangeFormType,
 }: IFormCardProps) {
   return (
-    <Draggable
-      key={`card-drag-${form.idx - 1}`}
-      draggableId={`card-drag-${form.idx - 1}`}
-      index={form.idx - 1}>
+    <Draggable key={form.key} draggableId={form.key} index={form.idx - 1}>
       {(provided, _) => (
         <Grow in>
           <S.CardContainer

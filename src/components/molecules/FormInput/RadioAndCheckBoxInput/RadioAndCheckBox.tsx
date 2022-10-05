@@ -62,10 +62,7 @@ function RadioAndCheckBoxSelection({
   const { value, isMouseOver, isFocused } = option;
 
   return (
-    <Draggable
-      key={`item-${option.idx}`}
-      draggableId={`item-${option.idx}`}
-      index={option.idx}>
+    <Draggable key={option.key} draggableId={option.key} index={option.idx}>
       {(provided, _) => (
         <S.RadioAndCheckBoxSelectionContainer
           onMouseOver={onMouseOver}
