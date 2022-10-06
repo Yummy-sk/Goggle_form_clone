@@ -12,6 +12,16 @@ interface ISelectionContentsProps {
   formState: Array<IFormState>;
 }
 
+/**
+ * SelectionContents
+ *
+ * 사용자가 선택한 옵션 페이지를 보여주는 컴포넌트 입니다.
+ *
+ * @param titleState - 제목 정보
+ * @param formState - 선택 정보
+ * @returns JSX.Element
+ */
+
 export function SelectionContents({
   titleState,
   formState,
@@ -20,6 +30,7 @@ export function SelectionContents({
   const dispatch = useAppDispatch();
   const initialValues = getInitialState({ formState });
 
+  // 사용자가 입력한 값을 제출하는 함수
   const onSubmit = ({ values }: { values: Array<ISelection> }) => {
     const updateState: Array<IResultState> = values.map(value => ({
       key: value.key,
@@ -28,7 +39,9 @@ export function SelectionContents({
       type: value.type,
     }));
 
+    // 전체 Title
     dispatch(updateTitle({ title: titleState.title }));
+    // 전체 결과 상태 값
     dispatch(updateResult(updateState));
     navigate('/result', { replace: true });
   };
@@ -45,6 +58,7 @@ export function SelectionContents({
     return null;
   }
 
+  // 타이틀에 필수 입력이 있는지 확인하기 위해, 필수 입력값이 있는지 확인하는 함수
   const checkIsIncludeRequiredForm = () =>
     values.some(value => value.isRequired);
 

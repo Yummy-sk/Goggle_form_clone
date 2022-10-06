@@ -12,7 +12,10 @@ interface IReudceState {
 
 export function Main() {
   const dispatch = useAppDispatch();
+
+  // redux store에서 state를 가져온다.
   const { items } = useAppSelector(state => state.form);
+  // useMemo로 titleState와 formState를 묶어서 값으로 반환
   const { titleState, formState } = useMemo(
     () =>
       items.reduce(
@@ -28,6 +31,7 @@ export function Main() {
     [items],
   );
 
+  // form 추가 버튼
   const onFormAdd = () => dispatch(addForm());
 
   if (!titleState) return null;

@@ -152,6 +152,16 @@ function RadioAndCheckBoxEtcOption({
   );
 }
 
+/**
+ * RadioAndCheckBoxInput
+ *
+ * 라디오 버튼과 체크박스를 렌더링하는 컴포넌트입니다.
+ *
+ * @param form form 상태 정보 ( 서로 변경이 되어도 값은 유지되어야 하기 때문에 )
+ * @param type radio or checkbox
+ * @returns JSX.Element
+ */
+
 export function RadioAndCheckBoxInput({
   form,
   type,
@@ -175,6 +185,7 @@ export function RadioAndCheckBoxInput({
 
   const [isEtcIncluded, setIsEtcIncluded] = useState<boolean>(isEtc);
 
+  // 해당 리스트가 Focus 되었는지 여부
   const onMouseOver = ({ key }: { key: string }) => {
     setOptions(
       options.map(option =>
@@ -183,6 +194,7 @@ export function RadioAndCheckBoxInput({
     );
   };
 
+  // 해당 리스트가 Focus Out 되었는지 여부
   const onMouseLeave = ({ key }: { key: string }) => {
     setOptions(
       options.map(option =>
@@ -191,6 +203,7 @@ export function RadioAndCheckBoxInput({
     );
   };
 
+  // 해당 리스트가 Focus 되었는지 여부
   const onClick = ({ key }: { key: string }) => {
     setOptions(
       options.map(option =>
@@ -201,6 +214,7 @@ export function RadioAndCheckBoxInput({
     );
   };
 
+  // 해당 리스트가 Focus Out 되었는지 여부
   const onBlur = ({ key }: { key: string }) => {
     setOptions(
       options.map(option =>
@@ -209,6 +223,7 @@ export function RadioAndCheckBoxInput({
     );
   };
 
+  // 해당 리스트가 삭제되었는지 여부
   const onDelete = ({ key }: { key: string }) => {
     if (options.length > 1) {
       const newOptions = options.filter(
@@ -226,6 +241,7 @@ export function RadioAndCheckBoxInput({
     }
   };
 
+  // 해당 리스트가 추가되었는지 여부
   const onAdd = () => {
     const nextState = [
       ...options.map(option => ({ ...option, isFocused: false })),
@@ -247,6 +263,7 @@ export function RadioAndCheckBoxInput({
     setOptions(nextState);
   };
 
+  // 기타가 추가되었는지 여부
   const onEtcAdd = () => {
     const nextState = !isEtcIncluded;
 
@@ -272,6 +289,7 @@ export function RadioAndCheckBoxInput({
     setIsEtcIncluded(nextState);
   };
 
+  // 해당 리스트가 변경되었는지 여부
   const onUpdate =
     ({ key }: { key: string }) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -289,6 +307,7 @@ export function RadioAndCheckBoxInput({
       );
     };
 
+  // 해당 리스트 아이템 순서 변경
   const onChangeSequence = ({
     sourceIdx,
     destinationIdx,
@@ -296,10 +315,11 @@ export function RadioAndCheckBoxInput({
     sourceIdx: number;
     destinationIdx: number;
   }) => {
+    // 현재 리스트의 값을 가져와서
     const targetItem = options[sourceIdx - 1];
-
+    // 현재 리스트의 값을 삭제하고
     const nextState = options.filter(option => option.idx !== sourceIdx);
-
+    // 현재 리스트의 값을 destinationIdx 위치에 추가한다.
     nextState.splice(destinationIdx - 1, 0, targetItem);
 
     setOptions(

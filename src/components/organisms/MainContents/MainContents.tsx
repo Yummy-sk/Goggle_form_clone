@@ -21,10 +21,25 @@ interface IMainContentsProps {
   titleState: IFormState;
   formState: Array<IFormState>;
 }
+
+/**
+ * MainContents
+ *
+ * 주 컨텐츠 영역을 포함하는 컴포넌트입니다.
+ *
+ * 여기에서 상태 값에 대한 핸들링 함수를 정의하고 props로 전달합니다.
+ *
+ * @param items
+ * @param titleState
+ * @param formState
+ * @returns JSX.Element
+ */
+
 function MainContents({ items, titleState, formState }: IMainContentsProps) {
   const dispatch = useAppDispatch();
   const { key, title, description, isActivated } = titleState;
 
+  // Form 전체 타이틀 변경 dispatch 함수
   const onUpdateFormTitle = useCallback(
     ({
       e,
@@ -38,12 +53,14 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch],
   );
 
+  // 카드 활성화 상태 dispatch 함수
   const onActivate = useCallback(
     ({ formKey }: { formKey: string }) =>
       dispatch(setActivated({ key: formKey })),
     [dispatch],
   );
 
+  // 카드 삭제 dispatch 함수
   const onRemove = useCallback(
     ({ formKey }: { formKey: string }) =>
       (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -59,6 +76,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch, items],
   );
 
+  // 카드 복제 dispatch 함수
   const onDuplicate = useCallback(
     ({ formKey }: { formKey: string }) =>
       (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -74,6 +92,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch, items],
   );
 
+  // 카드 필수 옵션 dispatch 함수
   const onRequired = useCallback(
     ({ formKey }: { formKey: string }) => {
       dispatch(
@@ -86,6 +105,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch, items],
   );
 
+  // 카드 제목 변경 dispatch 함수
   const onChangeTitle = useCallback(
     ({ formKey }: { formKey: string }) =>
       (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +116,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch, items],
   );
 
+  // 카드 타입 변경 dispatch 함수
   const onChangeFormType = useCallback(
     ({ formKey }: { formKey: string }) =>
       ({ type, form }: { type: ITypes; form: IFormState }) => {
@@ -108,6 +129,7 @@ function MainContents({ items, titleState, formState }: IMainContentsProps) {
     [dispatch],
   );
 
+  // 카드 순서 변경 dispatch 함수
   const onChangeSequence = useCallback(
     ({
       sourceIdx,

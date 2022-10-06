@@ -59,6 +59,19 @@ interface IFormOptionProps {
   onRequired: () => void;
 }
 
+/**
+ * FormInfo
+ *
+ * Form의 타이틀과 옵션 정보를 변경할 수 있습니다.
+ *
+ * @param value 타이틀 인풋의 상태값
+ * @param selection 질문 유형 선택
+ * @param forms 질문 유형 리스트
+ * @param onChange 질문 유형 변경
+ * @param onChangeTitle 질문 타이틀 변경
+ * @returns JSX.Element
+ */
+
 function FormInfo({
   value,
   selection,
@@ -89,6 +102,16 @@ function FormInfo({
   );
 }
 
+/**
+ * FormInput
+ *
+ * Form의 질문 유형에 따라 다른 입력 컴포넌트를 렌더링합니다.
+ *
+ * @param form FormCard의 상태값
+ * @param selection FormCard 삭제
+ * @returns JSX.Element
+ */
+
 export function FormInput({
   form,
   selection,
@@ -111,6 +134,20 @@ export function FormInput({
       return null;
   }
 }
+
+/**
+ * FormOptions
+ *
+ * Form의 옵션을 변경할 수 있습니다.
+ *
+ * 이에는 복사, 삭제, 필수 여부를 설정할 수 있습니다.
+ *
+ * @param isRequired 입력값 필수 여부
+ * @param onDuplicate FormCard 복제 dispatch 함수
+ * @param onRemove FormCard 삭제 dispatch 함수
+ * @param onRequired FormCard 필수 여부 dispatch 함수
+ * @returns JSX.Element
+ */
 
 function FormOptions({
   isRequired,
@@ -136,6 +173,28 @@ function FormOptions({
   );
 }
 
+/**
+ * FormCardActive
+ *
+ * Active 상태의 FormCard 컴포넌트입니다.
+ *
+ * 이에는 Header, Info, Input, Options가 포함되어 있습니다.
+ *
+ * Header는 DragHandle을 통해 드래그가 가능합니다.
+ * Info 해당 폼의 타이틀과 옵션을 변경할 수 있습니다.
+ * Input 해당 폼의 타입에 따라 다른 Input을 렌더링합니다.
+ * Options 해당 폼의 옵션을 변경할 수 있습니다.
+ *
+ * @param form
+ * @param onRemove
+ * @param onDuplicate
+ * @param onRequired
+ * @param onChangeTitle
+ * @param onChangeFormType
+ * @param dragHandleProps
+ * @returns JSX.Element
+ */
+
 export function FormCardActive({
   form,
   onChangeTitle,
@@ -145,8 +204,10 @@ export function FormCardActive({
   onChangeFormType,
   dragHandleProps,
 }: IFormCardActiveProps) {
+  // 선택지 타입 상태값
   const [selection, setSelection] = useState<ITypes>(form.type);
 
+  // 선택집 타입 구성 객체
   const forms: Array<IForms> = [
     {
       key: nanoid(),
