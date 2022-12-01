@@ -1,6 +1,6 @@
 [배포 링크](https://google-form-clone-project.vercel.app)
 
-## 1. 구현 목록
+## 구현 목록
 
 ### 기본 구현 사항
 
@@ -18,11 +18,7 @@
 - [X] 사용자는 미리보기 아이콘을 눌러 작성한 설문에 대해 미리 볼 수 있다.
 - [X] 사용자는 제출을 눌렀을 경우 사용자가 작성한 데이터를 볼 수 있다.
 
-## 2. 시연 영상
-
-[![썸네일](https://i.imgur.com/ZC6cBV1.png)](https://youtu.be/MJ6iVd_Ljbo)
-
-## 3. 사용한 기술 스택
+## 사용한 기술 스택
 
 + 언어: TypeScript
 + 라이브러리: React.js, React Router
@@ -30,7 +26,7 @@
 + 스타일링: Material UI, Emotion
 + 폴더구조: Atomic Design
 
-## 4. 실행 방법
+## 실행 방법
 
 ```bash
 yarn install 
